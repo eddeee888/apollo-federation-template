@@ -4,11 +4,12 @@ extend schema
     import: ["@key", "@shareable"]
   )
 
-type Query {
-  product(id: ID!): Product
+type User @key(fields: "id") {
+  id: ID!
+  watchedProducts: [Product!]!
 }
 
 type Product @key(fields: "id") {
   id: ID!
-  name: String!
+  tag: String!
 }

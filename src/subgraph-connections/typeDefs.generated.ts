@@ -56,89 +56,36 @@ export const typeDefs = {
     },
     {
       kind: "ObjectTypeDefinition",
-      name: { kind: "Name", value: "Query", loc: { start: 107, end: 112 } },
-      interfaces: [],
-      directives: [],
-      fields: [
-        {
-          kind: "FieldDefinition",
-          name: {
-            kind: "Name",
-            value: "product",
-            loc: { start: 117, end: 124 },
-          },
-          arguments: [
-            {
-              kind: "InputValueDefinition",
-              name: {
-                kind: "Name",
-                value: "id",
-                loc: { start: 125, end: 127 },
-              },
-              type: {
-                kind: "NonNullType",
-                type: {
-                  kind: "NamedType",
-                  name: {
-                    kind: "Name",
-                    value: "ID",
-                    loc: { start: 129, end: 131 },
-                  },
-                  loc: { start: 129, end: 131 },
-                },
-                loc: { start: 129, end: 132 },
-              },
-              directives: [],
-              loc: { start: 125, end: 132 },
-            },
-          ],
-          type: {
-            kind: "NamedType",
-            name: {
-              kind: "Name",
-              value: "Product",
-              loc: { start: 135, end: 142 },
-            },
-            loc: { start: 135, end: 142 },
-          },
-          directives: [],
-          loc: { start: 117, end: 142 },
-        },
-      ],
-      loc: { start: 102, end: 144 },
-    },
-    {
-      kind: "ObjectTypeDefinition",
-      name: { kind: "Name", value: "Product", loc: { start: 151, end: 158 } },
+      name: { kind: "Name", value: "User", loc: { start: 107, end: 111 } },
       interfaces: [],
       directives: [
         {
           kind: "Directive",
-          name: { kind: "Name", value: "key", loc: { start: 160, end: 163 } },
+          name: { kind: "Name", value: "key", loc: { start: 113, end: 116 } },
           arguments: [
             {
               kind: "Argument",
               name: {
                 kind: "Name",
                 value: "fields",
-                loc: { start: 164, end: 170 },
+                loc: { start: 117, end: 123 },
               },
               value: {
                 kind: "StringValue",
                 value: "id",
                 block: false,
-                loc: { start: 172, end: 176 },
+                loc: { start: 125, end: 129 },
               },
-              loc: { start: 164, end: 176 },
+              loc: { start: 117, end: 129 },
             },
           ],
-          loc: { start: 159, end: 177 },
+          loc: { start: 112, end: 130 },
         },
       ],
       fields: [
         {
           kind: "FieldDefinition",
-          name: { kind: "Name", value: "id", loc: { start: 182, end: 184 } },
+          name: { kind: "Name", value: "id", loc: { start: 135, end: 137 } },
           arguments: [],
           type: {
             kind: "NonNullType",
@@ -147,18 +94,102 @@ export const typeDefs = {
               name: {
                 kind: "Name",
                 value: "ID",
-                loc: { start: 186, end: 188 },
+                loc: { start: 139, end: 141 },
               },
-              loc: { start: 186, end: 188 },
+              loc: { start: 139, end: 141 },
             },
-            loc: { start: 186, end: 189 },
+            loc: { start: 139, end: 142 },
           },
           directives: [],
-          loc: { start: 182, end: 189 },
+          loc: { start: 135, end: 142 },
         },
         {
           kind: "FieldDefinition",
-          name: { kind: "Name", value: "name", loc: { start: 192, end: 196 } },
+          name: {
+            kind: "Name",
+            value: "watchedProducts",
+            loc: { start: 145, end: 160 },
+          },
+          arguments: [],
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "ListType",
+              type: {
+                kind: "NonNullType",
+                type: {
+                  kind: "NamedType",
+                  name: {
+                    kind: "Name",
+                    value: "Product",
+                    loc: { start: 163, end: 170 },
+                  },
+                  loc: { start: 163, end: 170 },
+                },
+                loc: { start: 163, end: 171 },
+              },
+              loc: { start: 162, end: 172 },
+            },
+            loc: { start: 162, end: 173 },
+          },
+          directives: [],
+          loc: { start: 145, end: 173 },
+        },
+      ],
+      loc: { start: 102, end: 175 },
+    },
+    {
+      kind: "ObjectTypeDefinition",
+      name: { kind: "Name", value: "Product", loc: { start: 182, end: 189 } },
+      interfaces: [],
+      directives: [
+        {
+          kind: "Directive",
+          name: { kind: "Name", value: "key", loc: { start: 191, end: 194 } },
+          arguments: [
+            {
+              kind: "Argument",
+              name: {
+                kind: "Name",
+                value: "fields",
+                loc: { start: 195, end: 201 },
+              },
+              value: {
+                kind: "StringValue",
+                value: "id",
+                block: false,
+                loc: { start: 203, end: 207 },
+              },
+              loc: { start: 195, end: 207 },
+            },
+          ],
+          loc: { start: 190, end: 208 },
+        },
+      ],
+      fields: [
+        {
+          kind: "FieldDefinition",
+          name: { kind: "Name", value: "id", loc: { start: 213, end: 215 } },
+          arguments: [],
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: {
+                kind: "Name",
+                value: "ID",
+                loc: { start: 217, end: 219 },
+              },
+              loc: { start: 217, end: 219 },
+            },
+            loc: { start: 217, end: 220 },
+          },
+          directives: [],
+          loc: { start: 213, end: 220 },
+        },
+        {
+          kind: "FieldDefinition",
+          name: { kind: "Name", value: "tag", loc: { start: 223, end: 226 } },
           arguments: [],
           type: {
             kind: "NonNullType",
@@ -167,18 +198,18 @@ export const typeDefs = {
               name: {
                 kind: "Name",
                 value: "String",
-                loc: { start: 198, end: 204 },
+                loc: { start: 228, end: 234 },
               },
-              loc: { start: 198, end: 204 },
+              loc: { start: 228, end: 234 },
             },
-            loc: { start: 198, end: 205 },
+            loc: { start: 228, end: 235 },
           },
           directives: [],
-          loc: { start: 192, end: 205 },
+          loc: { start: 223, end: 235 },
         },
       ],
-      loc: { start: 146, end: 207 },
+      loc: { start: 177, end: 237 },
     },
   ],
-  loc: { start: 0, end: 208 },
+  loc: { start: 0, end: 238 },
 } as unknown as DocumentNode;

@@ -4,5 +4,6 @@ export const me: NonNullable<QueryResolvers["me"]> = async (
   _arg,
   { database },
 ) => {
-  return database.users["1"];
+  console.log("*** users.Query.me");
+  return database.users["u:1"];
 };

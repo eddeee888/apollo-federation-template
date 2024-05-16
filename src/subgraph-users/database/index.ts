@@ -11,10 +11,10 @@ const createUser = ({ id }: { id: string }): DatabaseUser => {
 
 export const database: { users: Record<string, DatabaseUser> } = {
   users: {
-    "1": createUser({ id: "1" }),
-    "2": createUser({ id: "2" }),
-    "3": createUser({ id: "3" }),
-    "4": createUser({ id: "4" }),
-    "5": createUser({ id: "5" }),
+    "u:1": createUser({ id: "u:1" }),
+    "u:2": createUser({ id: "u:2" }),
+    "u:3": createUser({ id: "u:3" }),
+    "u:4": createUser({ id: "u:4" }),
+    "u:5": createUser({ id: "u:5" }),
   },
 };

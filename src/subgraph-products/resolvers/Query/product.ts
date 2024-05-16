@@ -4,5 +4,6 @@ export const product: NonNullable<QueryResolvers["product"]> = async (
   { id },
   { database },
 ) => {
+  console.log("*** products: Query.product ", id);
   return database.products[id];
 };

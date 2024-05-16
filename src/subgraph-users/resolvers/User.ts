@@ -1,6 +1,7 @@
 import type { UserResolvers } from "./../types.generated";
 export const User: UserResolvers = {
-  __resolveReference: ({ id }, { database }) => {
-    return database.users[id.toString()];
+  __resolveReference: (parent, { database }) => {
+    console.log("*** users.User.__resolveReference", parent);
+    return database.users[parent.id.toString()];
   },
 };
