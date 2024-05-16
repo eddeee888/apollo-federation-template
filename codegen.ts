@@ -1,0 +1,39 @@
+import type { CodegenConfig } from "@graphql-codegen/cli";
+import { defineConfig } from "@eddeee888/gcg-typescript-resolver-files";
+
+const config: CodegenConfig = {
+  hooks: {
+    afterAllFileWrite: ["prettier --write"],
+  },
+  generates: {
+    "src/subgraph-users": defineConfig(
+      {
+        mode: "merged",
+        resolverRelativeTargetDir: "resolvers",
+        typesPluginsConfig: {
+          federation: true,
+          contextType: "./index#ServerContext",
+        },
+      },
+      {
+        schema: "src/subgraph-users/schema.graphql",
+      }
+    ),
+
+    "src/subgraph-products": defineConfig(
+      {
+        mode: "merged",
+        resolverRelativeTargetDir: "resolvers",
+        typesPluginsConfig: {
+          federation: true,
+          contextType: "./index#ServerContext",
+        },
+      },
+      {
+        schema: "src/subgraph-products/schema.graphql",
+      }
+    ),
+  },
+};
+
+export default config;
