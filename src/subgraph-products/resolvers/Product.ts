@@ -1,4 +1,6 @@
 import type { ProductResolvers } from "./../types.generated";
 export const Product: ProductResolvers = {
-  /* Implement Product resolver logic here */
+  __resolveReference: async ({ id }, { database }) => {
+    return database.products[id];
+  },
 };
