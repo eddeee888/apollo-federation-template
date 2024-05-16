@@ -1,19 +1,13 @@
 import { ApolloServer } from "@apollo/server";
 import { startStandaloneServer } from "@apollo/server/standalone";
+import { typeDefs } from "./typeDefs.generated";
+import { resolvers } from "./resolvers.generated";
 
-const resolvers = {
-  Query: {
-    me() {
-      return { id: "1", username: "@ava" };
-    },
-  },
-};
-
-const server = new ApolloServer({
+const server = new ApolloServer<{}>({
   typeDefs,
   resolvers,
 });
 
-// Note the top-level await!
-const { url } = await startStandaloneServer(server);
-console.log(`🚀  Server ready at ${url}`);
+startStandaloneServer(server, { listen: { port: 8000 } }).then(({ url }) => {
+  console.log(`🚀  Server ready at ${url}`);
+});
