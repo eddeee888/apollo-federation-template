@@ -7,11 +7,12 @@
   "license": "MIT",
   "scripts": {
     "gg": "graphql-codegen",
-    "serve:user": "ts-node-dev src/subgraph-user/index.ts",
+    "serve:user": "ts-node-dev src/subgraph-users/index.ts",
     "lint": "eslint .",
     "format": "prettier . --write"
   },
   "dependencies": {
+    "@apollo/gateway": "2.7.7",
     "@apollo/server": "4.10.4",
     "@apollo/subgraph": "2.7.7",
     "graphql": "16.8.1"

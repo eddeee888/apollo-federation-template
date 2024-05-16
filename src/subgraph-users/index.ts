@@ -15,7 +15,7 @@ const server = new ApolloServer<ServerContext>({
 
 startStandaloneServer(server, {
   context: async () => ({ database }),
-  listen: { port: 8000 },
+  listen: { port: 9000 },
 }).then(({ url }) => {
-  console.log(`🚀  Server ready at ${url}`);
+  console.log(`🚀 subgraph-users ready at ${url}`);
 });

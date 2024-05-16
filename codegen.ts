@@ -6,7 +6,7 @@ const config: CodegenConfig = {
     afterAllFileWrite: ["prettier --write"],
   },
   generates: {
-    "src/subgraph-user": defineConfig(
+    "src/subgraph-users": defineConfig(
       {
         mode: "merged",
         resolverRelativeTargetDir: "resolvers",
