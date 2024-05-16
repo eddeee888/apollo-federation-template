@@ -6,7 +6,7 @@ const config: CodegenConfig = {
     afterAllFileWrite: ["prettier --write"],
   },
   generates: {
-    "src/subgraph-users": defineConfig(
+    "src/subgraph-connections": defineConfig(
       {
         mode: "merged",
         resolverRelativeTargetDir: "resolvers",
@@ -16,7 +16,7 @@ const config: CodegenConfig = {
         },
       },
       {
-        schema: "src/subgraph-users/schema.graphql",
+        schema: "src/subgraph-connections/schema.graphql",
       }
     ),
 
@@ -31,6 +31,20 @@ const config: CodegenConfig = {
       },
       {
         schema: "src/subgraph-products/schema.graphql",
+      }
+    ),
+
+    "src/subgraph-users": defineConfig(
+      {
+        mode: "merged",
+        resolverRelativeTargetDir: "resolvers",
+        typesPluginsConfig: {
+          federation: true,
+          contextType: "./index#ServerContext",
+        },
+      },
+      {
+        schema: "src/subgraph-users/schema.graphql",
       }
     ),
   },

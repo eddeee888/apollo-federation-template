@@ -1,20 +1,22 @@
-interface DatabaseProduct {
+export interface DatabaseProduct {
   id: string;
-  name: string;
+  isbn: string;
 }
 const createProduct = ({ id }: { id: string }): DatabaseProduct => {
   return {
     id,
-    name: `product-name-${id}`,
+    isbn: `isbn-${id}`,
   };
 };
 
-export const database: { products: Record<string, DatabaseProduct> } = {
+export const database: {
+  products: Record<string, DatabaseProduct>;
+} = {
   products: {
-    "1": createProduct({ id: "1" }),
-    "2": createProduct({ id: "2" }),
-    "3": createProduct({ id: "3" }),
-    "4": createProduct({ id: "4" }),
-    "5": createProduct({ id: "5" }),
+    "p:1": createProduct({ id: "p:1" }),
+    "p:2": createProduct({ id: "p:2" }),
+    "p:3": createProduct({ id: "p:3" }),
+    "p:4": createProduct({ id: "p:4" }),
+    "p:5": createProduct({ id: "p:5" }),
   },
 };
