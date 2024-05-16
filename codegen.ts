@@ -16,7 +16,21 @@ const config: CodegenConfig = {
         },
       },
       {
-        schema: "src/subgraph-user/schema.graphql",
+        schema: "src/subgraph-users/schema.graphql",
+      }
+    ),
+
+    "src/subgraph-products": defineConfig(
+      {
+        mode: "merged",
+        resolverRelativeTargetDir: "resolvers",
+        typesPluginsConfig: {
+          federation: true,
+          contextType: "./index#ServerContext",
+        },
+      },
+      {
+        schema: "src/subgraph-products/schema.graphql",
       }
     ),
   },
