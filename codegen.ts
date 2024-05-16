@@ -10,6 +10,10 @@ const config: CodegenConfig = {
       {
         mode: "merged",
         resolverRelativeTargetDir: "resolvers",
+        typesPluginsConfig: {
+          federation: true,
+          contextType: "./index#ServerContext",
+        },
       },
       {
         schema: "src/subgraph-user/schema.graphql",

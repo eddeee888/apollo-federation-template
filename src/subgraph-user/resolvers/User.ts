@@ -1,4 +1,6 @@
 import type { UserResolvers } from "./../types.generated";
 export const User: UserResolvers = {
-  /* Implement User resolver logic here */
+  __resolveReference: ({ id }, { database }) => {
+    return database.users[id.toString()];
+  },
 };

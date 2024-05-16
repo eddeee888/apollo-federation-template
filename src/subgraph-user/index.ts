@@ -1,13 +1,21 @@
 import { ApolloServer } from "@apollo/server";
+import { buildSubgraphSchema } from "@apollo/subgraph";
 import { startStandaloneServer } from "@apollo/server/standalone";
+import { database } from "./database";
 import { typeDefs } from "./typeDefs.generated";
 import { resolvers } from "./resolvers.generated";
 
-const server = new ApolloServer<{}>({
-  typeDefs,
-  resolvers,
+export interface ServerContext {
+  database: typeof database;
+}
+
+const server = new ApolloServer<ServerContext>({
+  schema: buildSubgraphSchema({ typeDefs, resolvers } as any),
 });
 
-startStandaloneServer(server, { listen: { port: 8000 } }).then(({ url }) => {
+startStandaloneServer(server, {
+  context: async () => ({ database }),
+  listen: { port: 8000 },
+}).then(({ url }) => {
   console.log(`🚀  Server ready at ${url}`);
 });

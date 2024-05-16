@@ -1,4 +1,5 @@
 import { GraphQLResolveInfo } from "graphql";
+import { ServerContext } from "./index";
 export type Maybe<T> = T | null | undefined;
 export type InputMaybe<T> = T | null | undefined;
 export type Exact<T extends { [key: string]: unknown }> = {
@@ -26,6 +27,7 @@ export type Scalars = {
   Boolean: { input: boolean; output: boolean };
   Int: { input: number; output: number };
   Float: { input: number; output: number };
+  _FieldSet: { input: any; output: any };
 };
 
 export type Query = {
@@ -36,10 +38,26 @@ export type Query = {
 export type User = {
   __typename?: "User";
   id: Scalars["ID"]["output"];
-  username?: Maybe<Scalars["String"]["output"]>;
+  username: Scalars["String"]["output"];
 };
 
 export type ResolverTypeWrapper<T> = Promise<T> | T;
+
+export type ReferenceResolver<TResult, TReference, TContext> = (
+  reference: TReference,
+  context: TContext,
+  info: GraphQLResolveInfo,
+) => Promise<TResult> | TResult;
+
+type ScalarCheck<T, S> = S extends true ? T : NullableCheck<T, S>;
+type NullableCheck<T, S> =
+  Maybe<T> extends T ? Maybe<ListCheck<NonNullable<T>, S>> : ListCheck<T, S>;
+type ListCheck<T, S> = T extends (infer U)[]
+  ? NullableCheck<U, S>[]
+  : GraphQLRecursivePick<T, S>;
+export type GraphQLRecursivePick<T, S> = {
+  [K in keyof T & keyof S]: ScalarCheck<T[K], S[K]>;
+};
 
 export type ResolverWithResolve<TResult, TParent, TContext, TArgs> = {
   resolve: ResolverFn<TResult, TParent, TContext, TArgs>;
@@ -163,7 +181,7 @@ export type ResolversParentTypes = {
 };
 
 export type QueryResolvers<
-  ContextType = any,
+  ContextType = ServerContext,
   ParentType extends
     ResolversParentTypes["Query"] = ResolversParentTypes["Query"],
 > = {
@@ -171,16 +189,21 @@ export type QueryResolvers<
 };
 
 export type UserResolvers<
-  ContextType = any,
+  ContextType = ServerContext,
   ParentType extends
     ResolversParentTypes["User"] = ResolversParentTypes["User"],
 > = {
+  __resolveReference?: ReferenceResolver<
+    Maybe<ResolversTypes["User"]>,
+    { __typename: "User" } & GraphQLRecursivePick<ParentType, { id: true }>,
+    ContextType
+  >;
   id?: Resolver<ResolversTypes["ID"], ParentType, ContextType>;
-  username?: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
+  username?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
-export type Resolvers<ContextType = any> = {
+export type Resolvers<ContextType = ServerContext> = {
   Query?: QueryResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
 };
