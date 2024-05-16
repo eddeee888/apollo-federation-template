@@ -210,10 +210,30 @@ export const typeDefs = {
       fields: [
         {
           kind: "FieldDefinition",
+          name: { kind: "Name", value: "id", loc: { start: 242, end: 244 } },
+          arguments: [],
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: {
+                kind: "Name",
+                value: "ID",
+                loc: { start: 246, end: 248 },
+              },
+              loc: { start: 246, end: 248 },
+            },
+            loc: { start: 246, end: 249 },
+          },
+          directives: [],
+          loc: { start: 242, end: 249 },
+        },
+        {
+          kind: "FieldDefinition",
           name: {
             kind: "Name",
             value: "lastViewedProduct",
-            loc: { start: 242, end: 259 },
+            loc: { start: 252, end: 269 },
           },
           arguments: [],
           type: {
@@ -221,19 +241,19 @@ export const typeDefs = {
             name: {
               kind: "Name",
               value: "Product",
-              loc: { start: 261, end: 268 },
+              loc: { start: 271, end: 278 },
             },
-            loc: { start: 261, end: 268 },
+            loc: { start: 271, end: 278 },
           },
           directives: [],
-          loc: { start: 242, end: 268 },
+          loc: { start: 252, end: 278 },
         },
         {
           kind: "FieldDefinition",
           name: {
             kind: "Name",
             value: "watchedProducts",
-            loc: { start: 271, end: 286 },
+            loc: { start: 281, end: 296 },
           },
           arguments: [],
           type: {
@@ -247,22 +267,22 @@ export const typeDefs = {
                   name: {
                     kind: "Name",
                     value: "Product",
-                    loc: { start: 289, end: 296 },
+                    loc: { start: 299, end: 306 },
                   },
-                  loc: { start: 289, end: 296 },
+                  loc: { start: 299, end: 306 },
                 },
-                loc: { start: 289, end: 297 },
+                loc: { start: 299, end: 307 },
               },
-              loc: { start: 288, end: 298 },
+              loc: { start: 298, end: 308 },
             },
-            loc: { start: 288, end: 299 },
+            loc: { start: 298, end: 309 },
           },
           directives: [],
-          loc: { start: 271, end: 299 },
+          loc: { start: 281, end: 309 },
         },
       ],
-      loc: { start: 209, end: 301 },
+      loc: { start: 209, end: 311 },
     },
   ],
-  loc: { start: 0, end: 302 },
+  loc: { start: 0, end: 312 },
 } as unknown as DocumentNode;

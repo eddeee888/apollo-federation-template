@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "gg": "graphql-codegen",
-    "serve": "npm-run-all --parallel serve:sub:* serve:router",
+    "serve": "npm-run-all -s gg -p serve:sub:* serve:router",
     "serve:router": "ts-node-dev src/graph-router/index.ts",
     "serve:sub:products": "ts-node-dev src/subgraph-products/index.ts",
     "serve:sub:users": "ts-node-dev src/subgraph-users/index.ts",

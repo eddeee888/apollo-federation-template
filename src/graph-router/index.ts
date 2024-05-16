@@ -14,5 +14,5 @@ const gateway = new ApolloGateway({
 const server = new ApolloServer({ gateway });
 
 startStandaloneServer(server, { listen: { port: 8888 } }).then(({ url }) => {
-  console.log(`🚀  graph-router ready at ${url}`);
+  console.log(`🚀 graph-router ready at ${url}`);
 });

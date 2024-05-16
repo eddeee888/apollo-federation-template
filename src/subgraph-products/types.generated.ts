@@ -50,6 +50,7 @@ export type QueryproductArgs = {
 
 export type User = {
   __typename?: "User";
+  id: Scalars["ID"]["output"];
   lastViewedProduct?: Maybe<Product>;
   watchedProducts: Array<Product>;
 };
@@ -233,6 +234,7 @@ export type UserResolvers<
     { __typename: "User" } & GraphQLRecursivePick<ParentType, { id: true }>,
     ContextType
   >;
+  id?: Resolver<ResolversTypes["ID"], ParentType, ContextType>;
   lastViewedProduct?: Resolver<
     Maybe<ResolversTypes["Product"]>,
     ParentType,
