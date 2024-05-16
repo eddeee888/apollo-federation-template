@@ -12,3 +12,8 @@ type Product @key(fields: "id") {
   id: ID!
   name: String!
 }
+
+type User @key(fields: "id") {
+  lastViewedProduct: Product
+  watchedProducts: [Product!]!
+}

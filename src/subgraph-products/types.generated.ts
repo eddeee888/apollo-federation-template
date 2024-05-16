@@ -48,6 +48,12 @@ export type QueryproductArgs = {
   id: Scalars["ID"]["input"];
 };
 
+export type User = {
+  __typename?: "User";
+  lastViewedProduct?: Maybe<Product>;
+  watchedProducts: Array<Product>;
+};
+
 export type ResolverTypeWrapper<T> = Promise<T> | T;
 
 export type ReferenceResolver<TResult, TReference, TContext> = (
@@ -175,6 +181,7 @@ export type ResolversTypes = {
   ID: ResolverTypeWrapper<Scalars["ID"]["output"]>;
   String: ResolverTypeWrapper<Scalars["String"]["output"]>;
   Query: ResolverTypeWrapper<{}>;
+  User: ResolverTypeWrapper<User>;
   Boolean: ResolverTypeWrapper<Scalars["Boolean"]["output"]>;
 };
 
@@ -184,6 +191,7 @@ export type ResolversParentTypes = {
   ID: Scalars["ID"]["output"];
   String: Scalars["String"]["output"];
   Query: {};
+  User: User;
   Boolean: Scalars["Boolean"]["output"];
 };
 
@@ -215,7 +223,31 @@ export type QueryResolvers<
   >;
 };
 
+export type UserResolvers<
+  ContextType = ServerContext,
+  ParentType extends
+    ResolversParentTypes["User"] = ResolversParentTypes["User"],
+> = {
+  __resolveReference?: ReferenceResolver<
+    Maybe<ResolversTypes["User"]>,
+    { __typename: "User" } & GraphQLRecursivePick<ParentType, { id: true }>,
+    ContextType
+  >;
+  lastViewedProduct?: Resolver<
+    Maybe<ResolversTypes["Product"]>,
+    ParentType,
+    ContextType
+  >;
+  watchedProducts?: Resolver<
+    Array<ResolversTypes["Product"]>,
+    ParentType,
+    ContextType
+  >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type Resolvers<ContextType = ServerContext> = {
   Product?: ProductResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
+  User?: UserResolvers<ContextType>;
 };

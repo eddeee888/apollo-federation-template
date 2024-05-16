@@ -179,6 +179,90 @@ export const typeDefs = {
       ],
       loc: { start: 146, end: 207 },
     },
+    {
+      kind: "ObjectTypeDefinition",
+      name: { kind: "Name", value: "User", loc: { start: 214, end: 218 } },
+      interfaces: [],
+      directives: [
+        {
+          kind: "Directive",
+          name: { kind: "Name", value: "key", loc: { start: 220, end: 223 } },
+          arguments: [
+            {
+              kind: "Argument",
+              name: {
+                kind: "Name",
+                value: "fields",
+                loc: { start: 224, end: 230 },
+              },
+              value: {
+                kind: "StringValue",
+                value: "id",
+                block: false,
+                loc: { start: 232, end: 236 },
+              },
+              loc: { start: 224, end: 236 },
+            },
+          ],
+          loc: { start: 219, end: 237 },
+        },
+      ],
+      fields: [
+        {
+          kind: "FieldDefinition",
+          name: {
+            kind: "Name",
+            value: "lastViewedProduct",
+            loc: { start: 242, end: 259 },
+          },
+          arguments: [],
+          type: {
+            kind: "NamedType",
+            name: {
+              kind: "Name",
+              value: "Product",
+              loc: { start: 261, end: 268 },
+            },
+            loc: { start: 261, end: 268 },
+          },
+          directives: [],
+          loc: { start: 242, end: 268 },
+        },
+        {
+          kind: "FieldDefinition",
+          name: {
+            kind: "Name",
+            value: "watchedProducts",
+            loc: { start: 271, end: 286 },
+          },
+          arguments: [],
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "ListType",
+              type: {
+                kind: "NonNullType",
+                type: {
+                  kind: "NamedType",
+                  name: {
+                    kind: "Name",
+                    value: "Product",
+                    loc: { start: 289, end: 296 },
+                  },
+                  loc: { start: 289, end: 296 },
+                },
+                loc: { start: 289, end: 297 },
+              },
+              loc: { start: 288, end: 298 },
+            },
+            loc: { start: 288, end: 299 },
+          },
+          directives: [],
+          loc: { start: 271, end: 299 },
+        },
+      ],
+      loc: { start: 209, end: 301 },
+    },
   ],
-  loc: { start: 0, end: 208 },
+  loc: { start: 0, end: 302 },
 } as unknown as DocumentNode;
