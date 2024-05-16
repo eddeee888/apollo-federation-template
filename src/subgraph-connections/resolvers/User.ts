@@ -8,7 +8,11 @@ export const User: UserResolvers = {
     );
 
     return records.map((record) => {
-      return { id: record[1], tag: "connections.User.watchedProducts" };
+      const productId = record[1];
+      return {
+        id: productId,
+        tag: `connections.User.watchedProducts ${productId}`,
+      };
     });
   },
 };
