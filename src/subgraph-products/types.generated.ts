@@ -36,6 +36,7 @@ export type Scalars = {
 
 export type Product = {
   __typename?: "Product";
+  alternateName: Scalars["String"]["output"];
   id: Scalars["ID"]["output"];
   name: Scalars["String"]["output"];
 };
@@ -173,8 +174,8 @@ export type DirectiveResolverFn<
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   Product: ResolverTypeWrapper<ProductMapper>;
-  ID: ResolverTypeWrapper<Scalars["ID"]["output"]>;
   String: ResolverTypeWrapper<Scalars["String"]["output"]>;
+  ID: ResolverTypeWrapper<Scalars["ID"]["output"]>;
   Query: ResolverTypeWrapper<{}>;
   Boolean: ResolverTypeWrapper<Scalars["Boolean"]["output"]>;
 };
@@ -182,8 +183,8 @@ export type ResolversTypes = {
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Product: ProductMapper;
-  ID: Scalars["ID"]["output"];
   String: Scalars["String"]["output"];
+  ID: Scalars["ID"]["output"];
   Query: {};
   Boolean: Scalars["Boolean"]["output"];
 };
@@ -198,6 +199,7 @@ export type ProductResolvers<
     { __typename: "Product" } & GraphQLRecursivePick<ParentType, { id: true }>,
     ContextType
   >;
+  alternateName?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
   id?: Resolver<ResolversTypes["ID"], ParentType, ContextType>;
   name?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;

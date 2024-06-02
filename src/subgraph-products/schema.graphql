@@ -10,5 +10,6 @@ type Query {
 
 type Product @key(fields: "id") {
   id: ID!
-  name: String!
+  name: String! @shareable
+  alternateName: String! @shareable
 }

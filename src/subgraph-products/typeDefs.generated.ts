@@ -173,12 +173,58 @@ export const typeDefs = {
             },
             loc: { start: 198, end: 205 },
           },
-          directives: [],
-          loc: { start: 192, end: 205 },
+          directives: [
+            {
+              kind: "Directive",
+              name: {
+                kind: "Name",
+                value: "shareable",
+                loc: { start: 207, end: 216 },
+              },
+              arguments: [],
+              loc: { start: 206, end: 216 },
+            },
+          ],
+          loc: { start: 192, end: 216 },
+        },
+        {
+          kind: "FieldDefinition",
+          name: {
+            kind: "Name",
+            value: "alternateName",
+            loc: { start: 219, end: 232 },
+          },
+          arguments: [],
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: {
+                kind: "Name",
+                value: "String",
+                loc: { start: 234, end: 240 },
+              },
+              loc: { start: 234, end: 240 },
+            },
+            loc: { start: 234, end: 241 },
+          },
+          directives: [
+            {
+              kind: "Directive",
+              name: {
+                kind: "Name",
+                value: "shareable",
+                loc: { start: 243, end: 252 },
+              },
+              arguments: [],
+              loc: { start: 242, end: 252 },
+            },
+          ],
+          loc: { start: 219, end: 252 },
         },
       ],
-      loc: { start: 146, end: 207 },
+      loc: { start: 146, end: 254 },
     },
   ],
-  loc: { start: 0, end: 208 },
+  loc: { start: 0, end: 255 },
 } as unknown as DocumentNode;
