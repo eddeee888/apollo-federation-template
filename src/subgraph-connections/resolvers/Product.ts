@@ -1,10 +1,17 @@
 import type { ProductResolvers } from "./../types.generated";
 export const Product: ProductResolvers = {
-  __resolveReference: ({ id }) => {
-    console.log(`*** connections.Product.__resolveReference: ${id}`);
+  __resolveReference: (parent: any) => {
+    const result = JSON.stringify(parent);
+    console.log(`*** connections.Product.__resolveReference: ${result}`);
     return {
-      id,
-      tag: `connections.Product.__resolveReference: ${id}`,
+      id: result,
+      pId: result,
+      compositeId: {
+        one: "1: " + result,
+        two: "2: " + result,
+        three: "3: " + result,
+      },
+      tag: `connections.Product.__resolveReference: ${result}`,
     };
   },
   tag: ({ tag }) => {

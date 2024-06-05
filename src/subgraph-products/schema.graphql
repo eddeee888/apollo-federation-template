@@ -8,8 +8,27 @@ type Query {
   product(id: ID!): Product
 }
 
-type Product @key(fields: "id") {
+type Product
+  @key(fields: "id", resolvable: false)
+  @key(fields: "pId", resolvable: true)
+  @key(fields: "compositeId { one two }", resolvable: false)
+  @key(fields: "id compositeId { two three }", resolvable: false) {
   id: ID!
-  name: String! @shareable
-  alternateName: String! @shareable
+  pId: ID!
+  compositeId: ProductCompositeID!
+  # name: String! @shareable
+  # alternateName: String! @shareable
+  productName: String!
+  # stage: ProductStage!
 }
+
+type ProductCompositeID {
+  one: ID!
+  two: ID!
+  three: ID!
+}
+
+# type ProductStage @key(fields: "id") {
+#   id: ID!
+#   beta: Boolean!
+# }

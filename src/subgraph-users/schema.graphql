@@ -1,7 +1,7 @@
 extend schema
   @link(
     url: "https://specs.apollo.dev/federation/v2.0"
-    import: ["@key", "@shareable", "@external", "@provides"]
+    import: ["@key", "@shareable", "@external", "@provides", "@requires"]
   )
 
 type Query {
@@ -12,14 +12,35 @@ type User @key(fields: "id") {
   id: ID!
   username: String!
   favouriteProducts: [Product!]!
-  favouriteProducts_Name: [Product!]! @provides(fields: "name")
-  favouriteProducts_AlternateName: [Product!]!
-    @provides(fields: "alternateName")
-  favouriteProducts_Both: [Product!]! @provides(fields: "name alternateName")
+  # favouriteProducts_Name: [Product!]! @provides(fields: "name")
+  # favouriteProducts_AlternateName: [Product!]!
+  #   @provides(fields: "alternateName")
+  # favouriteProducts_Both: [Product!]! @provides(fields: "name alternateName")
 }
 
-type Product @key(fields: "id") {
+type Product
+  @key(fields: "compositeId { one two }", resolvable: false)
+  @key(fields: "id compositeId { two three }", resolvable: true)
+  @key(fields: "pId", resolvable: false)
+  @key(fields: "id", resolvable: false) {
   id: ID!
-  name: String! @external
-  alternateName: String! @external
+  pId: ID!
+  compositeId: ProductCompositeID!
+  # name: String! @external
+  # alternateName: String! @external
+  productName: String! @external
+  # stage: ProductStage! @external
+  productNameBeta: String! @requires(fields: "productName")
+  # userProductName: String!
 }
+
+type ProductCompositeID {
+  one: ID!
+  two: ID!
+  three: ID!
+}
+
+# type ProductStage @key(fields: "id", resolvable: false) {
+#   id: ID!
+#   beta: Boolean! @external
+# }

@@ -11,6 +11,12 @@ export const User: UserResolvers = {
       const productId = record[1];
       return {
         id: productId,
+        pId: productId,
+        compositeId: {
+          one: "1: " + productId,
+          two: "2: " + productId,
+          three: "3: " + productId,
+        },
         tag: `connections.User.watchedProducts ${productId}`,
       };
     });

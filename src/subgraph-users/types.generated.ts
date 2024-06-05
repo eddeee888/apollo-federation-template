@@ -33,9 +33,18 @@ export type Scalars = {
 
 export type Product = {
   __typename?: "Product";
-  alternateName: Scalars["String"]["output"];
+  compositeId: ProductCompositeID;
   id: Scalars["ID"]["output"];
-  name: Scalars["String"]["output"];
+  pId: Scalars["ID"]["output"];
+  productName: Scalars["String"]["output"];
+  productNameBeta: Scalars["String"]["output"];
+};
+
+export type ProductCompositeID = {
+  __typename?: "ProductCompositeID";
+  one: Scalars["ID"]["output"];
+  three: Scalars["ID"]["output"];
+  two: Scalars["ID"]["output"];
 };
 
 export type Query = {
@@ -46,9 +55,6 @@ export type Query = {
 export type User = {
   __typename?: "User";
   favouriteProducts: Array<Product>;
-  favouriteProducts_AlternateName: Array<Product>;
-  favouriteProducts_Both: Array<Product>;
-  favouriteProducts_Name: Array<Product>;
   id: Scalars["ID"]["output"];
   username: Scalars["String"]["output"];
 };
@@ -177,8 +183,9 @@ export type DirectiveResolverFn<
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   Product: ResolverTypeWrapper<Product>;
-  String: ResolverTypeWrapper<Scalars["String"]["output"]>;
   ID: ResolverTypeWrapper<Scalars["ID"]["output"]>;
+  String: ResolverTypeWrapper<Scalars["String"]["output"]>;
+  ProductCompositeID: ResolverTypeWrapper<ProductCompositeID>;
   Query: ResolverTypeWrapper<{}>;
   User: ResolverTypeWrapper<UserMapper>;
   Boolean: ResolverTypeWrapper<Scalars["Boolean"]["output"]>;
@@ -187,8 +194,9 @@ export type ResolversTypes = {
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Product: Product;
-  String: Scalars["String"]["output"];
   ID: Scalars["ID"]["output"];
+  String: Scalars["String"]["output"];
+  ProductCompositeID: ProductCompositeID;
   Query: {};
   User: UserMapper;
   Boolean: Scalars["Boolean"]["output"];
@@ -201,24 +209,97 @@ export type ProductResolvers<
 > = {
   __resolveReference?: ReferenceResolver<
     Maybe<ResolversTypes["Product"]>,
-    { __typename: "Product" } & GraphQLRecursivePick<ParentType, { id: true }>,
+    { __typename: "Product" } & (
+      | GraphQLRecursivePick<
+          ParentType,
+          { compositeId: { one: true; two: true } }
+        >
+      | GraphQLRecursivePick<
+          ParentType,
+          { id: true; compositeId: { two: true; three: true } }
+        >
+      | GraphQLRecursivePick<ParentType, { pId: true }>
+      | GraphQLRecursivePick<ParentType, { id: true }>
+    ),
     ContextType
   >;
-  alternateName?: Resolver<
-    ResolversTypes["String"],
-    { __typename: "Product" } & GraphQLRecursivePick<ParentType, { id: true }>,
+  compositeId?: Resolver<
+    ResolversTypes["ProductCompositeID"],
+    { __typename: "Product" } & (
+      | GraphQLRecursivePick<
+          ParentType,
+          { compositeId: { one: true; two: true } }
+        >
+      | GraphQLRecursivePick<
+          ParentType,
+          { id: true; compositeId: { two: true; three: true } }
+        >
+      | GraphQLRecursivePick<ParentType, { pId: true }>
+      | GraphQLRecursivePick<ParentType, { id: true }>
+    ),
     ContextType
   >;
   id?: Resolver<
     ResolversTypes["ID"],
-    { __typename: "Product" } & GraphQLRecursivePick<ParentType, { id: true }>,
+    { __typename: "Product" } & (
+      | GraphQLRecursivePick<
+          ParentType,
+          { compositeId: { one: true; two: true } }
+        >
+      | GraphQLRecursivePick<
+          ParentType,
+          { id: true; compositeId: { two: true; three: true } }
+        >
+      | GraphQLRecursivePick<ParentType, { pId: true }>
+      | GraphQLRecursivePick<ParentType, { id: true }>
+    ),
     ContextType
   >;
-  name?: Resolver<
+  pId?: Resolver<
+    ResolversTypes["ID"],
+    { __typename: "Product" } & (
+      | GraphQLRecursivePick<
+          ParentType,
+          { compositeId: { one: true; two: true } }
+        >
+      | GraphQLRecursivePick<
+          ParentType,
+          { id: true; compositeId: { two: true; three: true } }
+        >
+      | GraphQLRecursivePick<ParentType, { pId: true }>
+      | GraphQLRecursivePick<ParentType, { id: true }>
+    ),
+    ContextType
+  >;
+
+  productNameBeta?: Resolver<
     ResolversTypes["String"],
-    { __typename: "Product" } & GraphQLRecursivePick<ParentType, { id: true }>,
+    { __typename: "Product" } & (
+      | GraphQLRecursivePick<
+          ParentType,
+          { compositeId: { one: true; two: true } }
+        >
+      | GraphQLRecursivePick<
+          ParentType,
+          { id: true; compositeId: { two: true; three: true } }
+        >
+      | GraphQLRecursivePick<ParentType, { pId: true }>
+      | GraphQLRecursivePick<ParentType, { id: true }>
+    ) &
+      GraphQLRecursivePick<ParentType, { productName: true }>,
     ContextType
   >;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type ProductCompositeIDResolvers<
+  ContextType = ServerContext,
+  ParentType extends
+    ResolversParentTypes["ProductCompositeID"] = ResolversParentTypes["ProductCompositeID"],
+> = {
+  one?: Resolver<ResolversTypes["ID"], ParentType, ContextType>;
+  three?: Resolver<ResolversTypes["ID"], ParentType, ContextType>;
+  two?: Resolver<ResolversTypes["ID"], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -245,21 +326,6 @@ export type UserResolvers<
     ParentType,
     ContextType
   >;
-  favouriteProducts_AlternateName?: Resolver<
-    Array<ResolversTypes["Product"]>,
-    ParentType,
-    ContextType
-  >;
-  favouriteProducts_Both?: Resolver<
-    Array<ResolversTypes["Product"]>,
-    ParentType,
-    ContextType
-  >;
-  favouriteProducts_Name?: Resolver<
-    Array<ResolversTypes["Product"]>,
-    ParentType,
-    ContextType
-  >;
   id?: Resolver<ResolversTypes["ID"], ParentType, ContextType>;
   username?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -267,6 +333,7 @@ export type UserResolvers<
 
 export type Resolvers<ContextType = ServerContext> = {
   Product?: ProductResolvers<ContextType>;
+  ProductCompositeID?: ProductCompositeIDResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
 };
