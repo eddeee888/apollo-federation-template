@@ -9,7 +9,19 @@ type User @key(fields: "id") {
   watchedProducts: [Product!]!
 }
 
-type Product @key(fields: "id") {
+type Product
+  @key(fields: "id")
+  @key(fields: "pId", resolvable: false)
+  @key(fields: "compositeId { one two }", resolvable: false)
+  @key(fields: "id compositeId { two three }", resolvable: false) {
   id: ID!
+  pId: ID!
+  compositeId: ProductCompositeID!
   tag: String!
+}
+
+type ProductCompositeID {
+  one: ID!
+  two: ID!
+  three: ID!
 }

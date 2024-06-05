@@ -32,8 +32,17 @@ export type Scalars = {
 
 export type Product = {
   __typename?: "Product";
+  compositeId: ProductCompositeID;
   id: Scalars["ID"]["output"];
+  pId: Scalars["ID"]["output"];
   tag: Scalars["String"]["output"];
+};
+
+export type ProductCompositeID = {
+  __typename?: "ProductCompositeID";
+  one: Scalars["ID"]["output"];
+  three: Scalars["ID"]["output"];
+  two: Scalars["ID"]["output"];
 };
 
 export type User = {
@@ -168,6 +177,7 @@ export type ResolversTypes = {
   Product: ResolverTypeWrapper<Product>;
   ID: ResolverTypeWrapper<Scalars["ID"]["output"]>;
   String: ResolverTypeWrapper<Scalars["String"]["output"]>;
+  ProductCompositeID: ResolverTypeWrapper<ProductCompositeID>;
   User: ResolverTypeWrapper<User>;
   Boolean: ResolverTypeWrapper<Scalars["Boolean"]["output"]>;
 };
@@ -177,6 +187,7 @@ export type ResolversParentTypes = {
   Product: Product;
   ID: Scalars["ID"]["output"];
   String: Scalars["String"]["output"];
+  ProductCompositeID: ProductCompositeID;
   User: User;
   Boolean: Scalars["Boolean"]["output"];
 };
@@ -188,11 +199,39 @@ export type ProductResolvers<
 > = {
   __resolveReference?: ReferenceResolver<
     Maybe<ResolversTypes["Product"]>,
-    { __typename: "Product" } & GraphQLRecursivePick<ParentType, { id: true }>,
+    { __typename: "Product" } & (
+      | GraphQLRecursivePick<ParentType, { id: true }>
+      | GraphQLRecursivePick<ParentType, { pId: true }>
+      | GraphQLRecursivePick<
+          ParentType,
+          { compositeId: { one: true; two: true } }
+        >
+      | GraphQLRecursivePick<
+          ParentType,
+          { id: true; compositeId: { two: true; three: true } }
+        >
+    ),
+    ContextType
+  >;
+  compositeId?: Resolver<
+    ResolversTypes["ProductCompositeID"],
+    ParentType,
     ContextType
   >;
   id?: Resolver<ResolversTypes["ID"], ParentType, ContextType>;
+  pId?: Resolver<ResolversTypes["ID"], ParentType, ContextType>;
   tag?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type ProductCompositeIDResolvers<
+  ContextType = ServerContext,
+  ParentType extends
+    ResolversParentTypes["ProductCompositeID"] = ResolversParentTypes["ProductCompositeID"],
+> = {
+  one?: Resolver<ResolversTypes["ID"], ParentType, ContextType>;
+  three?: Resolver<ResolversTypes["ID"], ParentType, ContextType>;
+  two?: Resolver<ResolversTypes["ID"], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -217,5 +256,6 @@ export type UserResolvers<
 
 export type Resolvers<ContextType = ServerContext> = {
   Product?: ProductResolvers<ContextType>;
+  ProductCompositeID?: ProductCompositeIDResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
 };

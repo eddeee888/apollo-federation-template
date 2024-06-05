@@ -165,11 +165,119 @@ export const typeDefs = {
           ],
           loc: { start: 190, end: 208 },
         },
+        {
+          kind: "Directive",
+          name: { kind: "Name", value: "key", loc: { start: 210, end: 213 } },
+          arguments: [
+            {
+              kind: "Argument",
+              name: {
+                kind: "Name",
+                value: "fields",
+                loc: { start: 214, end: 220 },
+              },
+              value: {
+                kind: "StringValue",
+                value: "pId",
+                block: false,
+                loc: { start: 222, end: 227 },
+              },
+              loc: { start: 214, end: 227 },
+            },
+            {
+              kind: "Argument",
+              name: {
+                kind: "Name",
+                value: "resolvable",
+                loc: { start: 229, end: 239 },
+              },
+              value: {
+                kind: "BooleanValue",
+                value: false,
+                loc: { start: 241, end: 246 },
+              },
+              loc: { start: 229, end: 246 },
+            },
+          ],
+          loc: { start: 209, end: 247 },
+        },
+        {
+          kind: "Directive",
+          name: { kind: "Name", value: "key", loc: { start: 249, end: 252 } },
+          arguments: [
+            {
+              kind: "Argument",
+              name: {
+                kind: "Name",
+                value: "fields",
+                loc: { start: 253, end: 259 },
+              },
+              value: {
+                kind: "StringValue",
+                value: "compositeId { one two }",
+                block: false,
+                loc: { start: 261, end: 286 },
+              },
+              loc: { start: 253, end: 286 },
+            },
+            {
+              kind: "Argument",
+              name: {
+                kind: "Name",
+                value: "resolvable",
+                loc: { start: 288, end: 298 },
+              },
+              value: {
+                kind: "BooleanValue",
+                value: false,
+                loc: { start: 300, end: 305 },
+              },
+              loc: { start: 288, end: 305 },
+            },
+          ],
+          loc: { start: 248, end: 306 },
+        },
+        {
+          kind: "Directive",
+          name: { kind: "Name", value: "key", loc: { start: 308, end: 311 } },
+          arguments: [
+            {
+              kind: "Argument",
+              name: {
+                kind: "Name",
+                value: "fields",
+                loc: { start: 312, end: 318 },
+              },
+              value: {
+                kind: "StringValue",
+                value: "id compositeId { two three }",
+                block: false,
+                loc: { start: 320, end: 350 },
+              },
+              loc: { start: 312, end: 350 },
+            },
+            {
+              kind: "Argument",
+              name: {
+                kind: "Name",
+                value: "resolvable",
+                loc: { start: 352, end: 362 },
+              },
+              value: {
+                kind: "BooleanValue",
+                value: false,
+                loc: { start: 364, end: 369 },
+              },
+              loc: { start: 352, end: 369 },
+            },
+          ],
+          loc: { start: 307, end: 370 },
+        },
       ],
       fields: [
         {
           kind: "FieldDefinition",
-          name: { kind: "Name", value: "id", loc: { start: 213, end: 215 } },
+          name: { kind: "Name", value: "id", loc: { start: 375, end: 377 } },
           arguments: [],
           type: {
             kind: "NonNullType",
@@ -178,18 +286,62 @@ export const typeDefs = {
               name: {
                 kind: "Name",
                 value: "ID",
-                loc: { start: 217, end: 219 },
+                loc: { start: 379, end: 381 },
               },
-              loc: { start: 217, end: 219 },
+              loc: { start: 379, end: 381 },
             },
-            loc: { start: 217, end: 220 },
+            loc: { start: 379, end: 382 },
           },
           directives: [],
-          loc: { start: 213, end: 220 },
+          loc: { start: 375, end: 382 },
         },
         {
           kind: "FieldDefinition",
-          name: { kind: "Name", value: "tag", loc: { start: 223, end: 226 } },
+          name: { kind: "Name", value: "pId", loc: { start: 385, end: 388 } },
+          arguments: [],
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: {
+                kind: "Name",
+                value: "ID",
+                loc: { start: 390, end: 392 },
+              },
+              loc: { start: 390, end: 392 },
+            },
+            loc: { start: 390, end: 393 },
+          },
+          directives: [],
+          loc: { start: 385, end: 393 },
+        },
+        {
+          kind: "FieldDefinition",
+          name: {
+            kind: "Name",
+            value: "compositeId",
+            loc: { start: 396, end: 407 },
+          },
+          arguments: [],
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: {
+                kind: "Name",
+                value: "ProductCompositeID",
+                loc: { start: 409, end: 427 },
+              },
+              loc: { start: 409, end: 427 },
+            },
+            loc: { start: 409, end: 428 },
+          },
+          directives: [],
+          loc: { start: 396, end: 428 },
+        },
+        {
+          kind: "FieldDefinition",
+          name: { kind: "Name", value: "tag", loc: { start: 431, end: 434 } },
           arguments: [],
           type: {
             kind: "NonNullType",
@@ -198,18 +350,91 @@ export const typeDefs = {
               name: {
                 kind: "Name",
                 value: "String",
-                loc: { start: 228, end: 234 },
+                loc: { start: 436, end: 442 },
               },
-              loc: { start: 228, end: 234 },
+              loc: { start: 436, end: 442 },
             },
-            loc: { start: 228, end: 235 },
+            loc: { start: 436, end: 443 },
           },
           directives: [],
-          loc: { start: 223, end: 235 },
+          loc: { start: 431, end: 443 },
         },
       ],
-      loc: { start: 177, end: 237 },
+      loc: { start: 177, end: 445 },
+    },
+    {
+      kind: "ObjectTypeDefinition",
+      name: {
+        kind: "Name",
+        value: "ProductCompositeID",
+        loc: { start: 452, end: 470 },
+      },
+      interfaces: [],
+      directives: [],
+      fields: [
+        {
+          kind: "FieldDefinition",
+          name: { kind: "Name", value: "one", loc: { start: 475, end: 478 } },
+          arguments: [],
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: {
+                kind: "Name",
+                value: "ID",
+                loc: { start: 480, end: 482 },
+              },
+              loc: { start: 480, end: 482 },
+            },
+            loc: { start: 480, end: 483 },
+          },
+          directives: [],
+          loc: { start: 475, end: 483 },
+        },
+        {
+          kind: "FieldDefinition",
+          name: { kind: "Name", value: "two", loc: { start: 486, end: 489 } },
+          arguments: [],
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: {
+                kind: "Name",
+                value: "ID",
+                loc: { start: 491, end: 493 },
+              },
+              loc: { start: 491, end: 493 },
+            },
+            loc: { start: 491, end: 494 },
+          },
+          directives: [],
+          loc: { start: 486, end: 494 },
+        },
+        {
+          kind: "FieldDefinition",
+          name: { kind: "Name", value: "three", loc: { start: 497, end: 502 } },
+          arguments: [],
+          type: {
+            kind: "NonNullType",
+            type: {
+              kind: "NamedType",
+              name: {
+                kind: "Name",
+                value: "ID",
+                loc: { start: 504, end: 506 },
+              },
+              loc: { start: 504, end: 506 },
+            },
+            loc: { start: 504, end: 507 },
+          },
+          directives: [],
+          loc: { start: 497, end: 507 },
+        },
+      ],
+      loc: { start: 447, end: 509 },
     },
   ],
-  loc: { start: 0, end: 238 },
+  loc: { start: 0, end: 510 },
 } as unknown as DocumentNode;
