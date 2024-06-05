@@ -19,7 +19,7 @@ const createUser = ({
 
 export const database: { users: Record<string, DatabaseUser> } = {
   users: {
-    "u:1": createUser({ id: "u:1", favouriteProductIds: ["p:2", "p:3"] }),
+    "u:1": createUser({ id: "u:1", favouriteProductIds: ["p:2"] }),
     "u:2": createUser({ id: "u:2", favouriteProductIds: ["p:1", "p:3"] }),
     "u:3": createUser({ id: "u:3", favouriteProductIds: [] }),
     "u:4": createUser({ id: "u:4", favouriteProductIds: ["p:1"] }),
