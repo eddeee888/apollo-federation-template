@@ -1,4 +1,7 @@
-export const database: { watchedProducts: string[][] } = {
+export const database: {
+  watchedProducts: string[][];
+  friends: Record<string, string[]>;
+} = {
   watchedProducts: [
     ["u:1", "p:1"],
     ["u:1", "p:2"],
@@ -14,4 +17,9 @@ export const database: { watchedProducts: string[][] } = {
     ["u:4", "p:5"],
     ["u:5", "p:5"],
   ],
+  friends: {
+    "u:1": ["u:2", "u:3"],
+    "u:2": ["u:1", "u:3"],
+    "u:3": ["u:1", "u:2"],
+  },
 };

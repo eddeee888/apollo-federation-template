@@ -1,14 +1,14 @@
 import type { ProductResolvers } from "./../types.generated";
 export const Product: ProductResolvers = {
-  __resolveReference: ({ id }) => {
-    console.log(`*** connections.Product.__resolveReference: ${id}`);
+  __resolveReference: (ref) => {
+    console.log("--- connections.Product.__resolveReference", ref);
     return {
-      id,
-      tag: `connections.Product.__resolveReference: ${id}`,
+      id: ref.id,
+      tag: `connections.Product.__resolveReference: ${ref.id}`,
     };
   },
-  tag: ({ tag }) => {
-    console.log("*** connections.Product.tag");
-    return tag;
+  tag: (parent) => {
+    console.log("*** connections.Product.tag", parent);
+    return parent.tag;
   },
 };

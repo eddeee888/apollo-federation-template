@@ -7,6 +7,7 @@ extend schema
 type User @key(fields: "id") {
   id: ID!
   watchedProducts: [Product!]!
+  friends: [User!]!
 }
 
 type Product @key(fields: "id") {

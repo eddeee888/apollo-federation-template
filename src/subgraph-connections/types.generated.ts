@@ -1,4 +1,5 @@
 import { GraphQLResolveInfo } from "graphql";
+import { UserMapper } from "./schema.mappers";
 import { ServerContext } from "./index";
 export type Maybe<T> = T | null | undefined;
 export type InputMaybe<T> = T | null | undefined;
@@ -38,6 +39,7 @@ export type Product = {
 
 export type User = {
   __typename?: "User";
+  friends: Array<User>;
   id: Scalars["ID"]["output"];
   watchedProducts: Array<Product>;
 };
@@ -168,7 +170,7 @@ export type ResolversTypes = {
   Product: ResolverTypeWrapper<Product>;
   ID: ResolverTypeWrapper<Scalars["ID"]["output"]>;
   String: ResolverTypeWrapper<Scalars["String"]["output"]>;
-  User: ResolverTypeWrapper<User>;
+  User: ResolverTypeWrapper<UserMapper>;
   Boolean: ResolverTypeWrapper<Scalars["Boolean"]["output"]>;
 };
 
@@ -177,7 +179,7 @@ export type ResolversParentTypes = {
   Product: Product;
   ID: Scalars["ID"]["output"];
   String: Scalars["String"]["output"];
-  User: User;
+  User: UserMapper;
   Boolean: Scalars["Boolean"]["output"];
 };
 
@@ -206,6 +208,7 @@ export type UserResolvers<
     { __typename: "User" } & GraphQLRecursivePick<ParentType, { id: true }>,
     ContextType
   >;
+  friends?: Resolver<Array<ResolversTypes["User"]>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes["ID"], ParentType, ContextType>;
   watchedProducts?: Resolver<
     Array<ResolversTypes["Product"]>,
