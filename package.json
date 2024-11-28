@@ -16,15 +16,15 @@
     "format": "prettier . --write"
   },
   "dependencies": {
-    "@apollo/gateway": "2.7.7",
-    "@apollo/server": "4.10.4",
-    "@apollo/subgraph": "2.7.7",
-    "graphql": "16.8.1"
+    "@apollo/gateway": "2.9.3",
+    "@apollo/server": "4.11.2",
+    "@apollo/subgraph": "2.9.3",
+    "graphql": "16.9.0"
   },
   "devDependencies": {
     "@eddeee888/eslint-plugin": "0.0.1",
-    "@eddeee888/gcg-typescript-resolver-files": "0.8.0",
-    "@graphql-codegen/cli": "5.0.2",
+    "@eddeee888/gcg-typescript-resolver-files": "0.11.0",
+    "@graphql-codegen/cli": "5.0.3",
     "@typescript-eslint/eslint-plugin": "7.9.0",
     "@typescript-eslint/parser": "7.9.0",
     "eslint": "9.2.0",

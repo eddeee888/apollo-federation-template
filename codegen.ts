@@ -9,10 +9,14 @@ const config: CodegenConfig = {
     "src/subgraph-connections": defineConfig(
       {
         mode: "merged",
+        mergeSchema: false,
         resolverRelativeTargetDir: "resolvers",
         typesPluginsConfig: {
           federation: true,
           contextType: "./index#ServerContext",
+          generateInternalResolversIfNeeded: {
+            __resolveReference: false,
+          },
         },
       },
       {
@@ -23,10 +27,14 @@ const config: CodegenConfig = {
     "src/subgraph-products": defineConfig(
       {
         mode: "merged",
+        mergeSchema: false,
         resolverRelativeTargetDir: "resolvers",
         typesPluginsConfig: {
           federation: true,
           contextType: "./index#ServerContext",
+          generateInternalResolversIfNeeded: {
+            __resolveReference: false,
+          },
         },
       },
       {
@@ -37,10 +45,14 @@ const config: CodegenConfig = {
     "src/subgraph-users": defineConfig(
       {
         mode: "merged",
+        mergeSchema: false,
         resolverRelativeTargetDir: "resolvers",
         typesPluginsConfig: {
           federation: true,
           contextType: "./index#ServerContext",
+          generateInternalResolversIfNeeded: {
+            __resolveReference: false,
+          },
         },
       },
       {
