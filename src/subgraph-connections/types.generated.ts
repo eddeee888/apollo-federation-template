@@ -21,6 +21,9 @@ export type Incremental<T> =
   | {
       [P in keyof T]?: P extends " $fragmentName" | "__typename" ? T[P] : never;
     };
+export type EnumResolverSignature<T, AllowedValues = any> = {
+  [key in keyof T]?: AllowedValues;
+};
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: { input: string; output: string | number };
@@ -31,6 +34,14 @@ export type Scalars = {
   _FieldSet: { input: any; output: any };
 };
 
+export type PersonName = {
+  __typename?: "PersonName";
+  first: Scalars["String"]["output"];
+  last: Scalars["String"]["output"];
+};
+
+export type PersonTitle = "DR" | "MR" | "MRS" | "MS" | "PROF";
+
 export type Product = {
   __typename?: "Product";
   id: Scalars["ID"]["output"];
@@ -39,8 +50,17 @@ export type Product = {
 
 export type User = {
   __typename?: "User";
+  age: Scalars["Int"]["output"];
+  birthYear: Scalars["Int"]["output"];
+  firstName: Scalars["String"]["output"];
   friends: Array<User>;
+  fullName: Scalars["String"]["output"];
+  fullNameUsingPersonName: Scalars["String"]["output"];
+  fullNameWithTitle: Scalars["String"]["output"];
   id: Scalars["ID"]["output"];
+  lastName: Scalars["String"]["output"];
+  name: PersonName;
+  title: PersonTitle;
   watchedProducts: Array<Product>;
 };
 
@@ -167,21 +187,41 @@ export type DirectiveResolverFn<
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
+  PersonName: ResolverTypeWrapper<PersonName>;
+  String: ResolverTypeWrapper<Scalars["String"]["output"]>;
+  PersonTitle: ResolverTypeWrapper<"MR" | "MRS" | "MS" | "DR" | "PROF">;
   Product: ResolverTypeWrapper<Product>;
   ID: ResolverTypeWrapper<Scalars["ID"]["output"]>;
-  String: ResolverTypeWrapper<Scalars["String"]["output"]>;
   User: ResolverTypeWrapper<UserMapper>;
+  Int: ResolverTypeWrapper<Scalars["Int"]["output"]>;
   Boolean: ResolverTypeWrapper<Scalars["Boolean"]["output"]>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
+  PersonName: PersonName;
+  String: Scalars["String"]["output"];
   Product: Product;
   ID: Scalars["ID"]["output"];
-  String: Scalars["String"]["output"];
   User: UserMapper;
+  Int: Scalars["Int"]["output"];
   Boolean: Scalars["Boolean"]["output"];
 };
+
+export type PersonNameResolvers<
+  ContextType = ServerContext,
+  ParentType extends
+    ResolversParentTypes["PersonName"] = ResolversParentTypes["PersonName"],
+> = {
+  first?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
+  last?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type PersonTitleResolvers = EnumResolverSignature<
+  { DR?: any; MR?: any; MRS?: any; MS?: any; PROF?: any },
+  ResolversTypes["PersonTitle"]
+>;
 
 export type ProductResolvers<
   ContextType = ServerContext,
@@ -208,17 +248,56 @@ export type UserResolvers<
     { __typename: "User" } & GraphQLRecursivePick<ParentType, { id: true }>,
     ContextType
   >;
-  friends?: Resolver<Array<ResolversTypes["User"]>, ParentType, ContextType>;
-  id?: Resolver<ResolversTypes["ID"], ParentType, ContextType>;
+  age?: Resolver<
+    ResolversTypes["Int"],
+    { __typename: "User" } & GraphQLRecursivePick<ParentType, { id: true }> &
+      GraphQLRecursivePick<ParentType, { birthYear: true }>,
+    ContextType
+  >;
+
+  friends?: Resolver<
+    Array<ResolversTypes["User"]>,
+    { __typename: "User" } & GraphQLRecursivePick<ParentType, { id: true }>,
+    ContextType
+  >;
+  fullName?: Resolver<
+    ResolversTypes["String"],
+    { __typename: "User" } & GraphQLRecursivePick<ParentType, { id: true }> &
+      GraphQLRecursivePick<ParentType, { firstName: true; lastName: true }>,
+    ContextType
+  >;
+  fullNameUsingPersonName?: Resolver<
+    ResolversTypes["String"],
+    { __typename: "User" } & GraphQLRecursivePick<ParentType, { id: true }> &
+      GraphQLRecursivePick<ParentType, { name: { first: true; last: true } }>,
+    ContextType
+  >;
+  fullNameWithTitle?: Resolver<
+    ResolversTypes["String"],
+    { __typename: "User" } & GraphQLRecursivePick<ParentType, { id: true }> &
+      GraphQLRecursivePick<
+        ParentType,
+        { firstName: true; lastName: true; title: true }
+      >,
+    ContextType
+  >;
+  id?: Resolver<
+    ResolversTypes["ID"],
+    { __typename: "User" } & GraphQLRecursivePick<ParentType, { id: true }>,
+    ContextType
+  >;
+
   watchedProducts?: Resolver<
     Array<ResolversTypes["Product"]>,
-    ParentType,
+    { __typename: "User" } & GraphQLRecursivePick<ParentType, { id: true }>,
     ContextType
   >;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type Resolvers<ContextType = ServerContext> = {
+  PersonName?: PersonNameResolvers<ContextType>;
+  PersonTitle?: PersonTitleResolvers;
   Product?: ProductResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
 };

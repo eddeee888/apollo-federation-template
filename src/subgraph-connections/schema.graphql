@@ -1,13 +1,37 @@
 extend schema
   @link(
     url: "https://specs.apollo.dev/federation/v2.0"
-    import: ["@key", "@shareable"]
+    import: ["@key", "@shareable", "@requires", "@external"]
   )
 
 type User @key(fields: "id") {
   id: ID!
   watchedProducts: [Product!]!
   friends: [User!]!
+
+  name: PersonName! @external
+  title: PersonTitle! @external
+  firstName: String! @external
+  lastName: String! @external
+  birthYear: Int! @external
+
+  fullName: String! @requires(fields: "firstName lastName")
+  fullNameWithTitle: String! @requires(fields: "firstName lastName title")
+  fullNameUsingPersonName: String! @requires(fields: "name { first last }")
+  age: Int! @requires(fields: "birthYear")
+}
+
+type PersonName @external {
+  first: String!
+  last: String!
+}
+
+enum PersonTitle {
+  MR
+  MRS
+  MS
+  DR
+  PROF
 }
 
 type Product @key(fields: "id") {

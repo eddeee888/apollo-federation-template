@@ -2,13 +2,15 @@ import type { UserResolvers } from "./../types.generated";
 export const User: UserResolvers = {
   __resolveReference: (ref: any, { database }) => {
     console.log("--- connections.User.__resolveReference", ref);
-    return { _id: ref.id, source: "ref" };
+    const { id, ...rest } = ref;
+    console.log("--- connections.User.__resolveReference AFTER", ref);
+    return { ...rest, _id: id, source: "ref" };
   },
-  id: (parent) => {
+  id: (parent: any) => {
     console.log("*** connections.User.id", parent);
     return parent._id;
   },
-  watchedProducts: (parent, _, { database }) => {
+  watchedProducts: (parent: any, _, { database }) => {
     console.log("*** connections.User.watchedProducts", parent);
     const records = database.watchedProducts.filter(
       (record) => record[0] === parent._id
@@ -22,11 +24,27 @@ export const User: UserResolvers = {
       };
     });
   },
-  friends: (parent, _, { database }) => {
+  friends: (parent: any, _, { database }) => {
     console.log("*** connections.User.friends", parent);
     return database.friends[parent._id].map((id) => ({
       _id: id,
       source: "resolver",
     }));
+  },
+  fullName: async (parent: any, _arg, _ctx) => {
+    console.log("*** connections.User.fullName", parent);
+    return `${parent.firstName} ${parent.lastName}`;
+  },
+  fullNameWithTitle: async (parent: any, _arg, _ctx) => {
+    console.log("*** connections.User.fullNameWithTitle", parent);
+    return `${parent.title} ${parent.firstName} ${parent.lastName}`;
+  },
+  fullNameUsingPersonName: async (parent: any, _arg, _ctx) => {
+    console.log("*** connections.User.fullNameUsingPersonName", parent);
+    return `${parent.name.first} ${parent.name.last}`;
+  },
+  age: (parent) => {
+    console.log("*** connections.User.age", parent);
+    return 39;
   },
 };

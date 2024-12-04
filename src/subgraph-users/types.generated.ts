@@ -1,4 +1,5 @@
 import { GraphQLResolveInfo } from "graphql";
+import { UserMapper } from "./schema.mappers";
 import { ServerContext } from "./index";
 export type Maybe<T> = T | null | undefined;
 export type InputMaybe<T> = T | null | undefined;
@@ -20,6 +21,9 @@ export type Incremental<T> =
   | {
       [P in keyof T]?: P extends " $fragmentName" | "__typename" ? T[P] : never;
     };
+export type EnumResolverSignature<T, AllowedValues = any> = {
+  [key in keyof T]?: AllowedValues;
+};
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: { input: string; output: string | number };
@@ -30,6 +34,19 @@ export type Scalars = {
   _FieldSet: { input: any; output: any };
 };
 
+export type PersonName = {
+  __typename?: "PersonName";
+  first: Scalars["String"]["output"];
+  last: Scalars["String"]["output"];
+};
+
+export type PersonTitle = "DR" | "MR" | "MRS" | "MS" | "PROF";
+
+export type Profile = {
+  __typename?: "Profile";
+  id: Scalars["ID"]["output"];
+};
+
 export type Query = {
   __typename?: "Query";
   me?: Maybe<User>;
@@ -37,7 +54,12 @@ export type Query = {
 
 export type User = {
   __typename?: "User";
+  birthYear: Scalars["Int"]["output"];
+  firstName: Scalars["String"]["output"];
   id: Scalars["ID"]["output"];
+  lastName: Scalars["String"]["output"];
+  name: PersonName;
+  title: PersonTitle;
   username: Scalars["String"]["output"];
 };
 
@@ -164,20 +186,51 @@ export type DirectiveResolverFn<
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
-  Query: ResolverTypeWrapper<{}>;
-  User: ResolverTypeWrapper<User>;
-  ID: ResolverTypeWrapper<Scalars["ID"]["output"]>;
+  PersonName: ResolverTypeWrapper<PersonName>;
   String: ResolverTypeWrapper<Scalars["String"]["output"]>;
+  PersonTitle: ResolverTypeWrapper<"MR" | "MRS" | "MS" | "DR" | "PROF">;
+  Profile: ResolverTypeWrapper<Profile>;
+  ID: ResolverTypeWrapper<Scalars["ID"]["output"]>;
+  Query: ResolverTypeWrapper<{}>;
+  User: ResolverTypeWrapper<UserMapper>;
+  Int: ResolverTypeWrapper<Scalars["Int"]["output"]>;
   Boolean: ResolverTypeWrapper<Scalars["Boolean"]["output"]>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
-  Query: {};
-  User: User;
-  ID: Scalars["ID"]["output"];
+  PersonName: PersonName;
   String: Scalars["String"]["output"];
+  Profile: Profile;
+  ID: Scalars["ID"]["output"];
+  Query: {};
+  User: UserMapper;
+  Int: Scalars["Int"]["output"];
   Boolean: Scalars["Boolean"]["output"];
+};
+
+export type PersonNameResolvers<
+  ContextType = ServerContext,
+  ParentType extends
+    ResolversParentTypes["PersonName"] = ResolversParentTypes["PersonName"],
+> = {
+  first?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
+  last?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type PersonTitleResolvers = EnumResolverSignature<
+  { DR?: any; MR?: any; MRS?: any; MS?: any; PROF?: any },
+  ResolversTypes["PersonTitle"]
+>;
+
+export type ProfileResolvers<
+  ContextType = ServerContext,
+  ParentType extends
+    ResolversParentTypes["Profile"] = ResolversParentTypes["Profile"],
+> = {
+  id?: Resolver<ResolversTypes["ID"], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type QueryResolvers<
@@ -198,12 +251,20 @@ export type UserResolvers<
     { __typename: "User" } & GraphQLRecursivePick<ParentType, { id: true }>,
     ContextType
   >;
+  birthYear?: Resolver<ResolversTypes["Int"], ParentType, ContextType>;
+  firstName?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
   id?: Resolver<ResolversTypes["ID"], ParentType, ContextType>;
+  lastName?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes["PersonName"], ParentType, ContextType>;
+  title?: Resolver<ResolversTypes["PersonTitle"], ParentType, ContextType>;
   username?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type Resolvers<ContextType = ServerContext> = {
+  PersonName?: PersonNameResolvers<ContextType>;
+  PersonTitle?: PersonTitleResolvers;
+  Profile?: ProfileResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
 };

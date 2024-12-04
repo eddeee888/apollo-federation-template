@@ -11,4 +11,26 @@ type Query {
 type User @key(fields: "id") {
   id: ID!
   username: String!
+  name: PersonName!
+  birthYear: Int!
+  firstName: String!
+  lastName: String!
+  title: PersonTitle!
+}
+
+type PersonName @shareable {
+  first: String!
+  last: String!
+}
+
+enum PersonTitle {
+  MR
+  MRS
+  MS
+  DR
+  PROF
+}
+
+type Profile {
+  id: ID!
 }

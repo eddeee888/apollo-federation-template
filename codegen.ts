@@ -10,6 +10,7 @@ const config: CodegenConfig = {
       {
         mode: "merged",
         mergeSchema: false,
+        fixObjectTypeResolvers: "disabled",
         resolverRelativeTargetDir: "resolvers",
         typesPluginsConfig: {
           federation: true,
