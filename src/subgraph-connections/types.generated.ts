@@ -24,6 +24,9 @@ export type Incremental<T> =
 export type EnumResolverSignature<T, AllowedValues = any> = {
   [key in keyof T]?: AllowedValues;
 };
+export type RequireFields<T, K extends keyof T> = Omit<T, K> & {
+  [P in K]-?: NonNullable<T[P]>;
+};
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: { input: string; output: string | number };
@@ -46,6 +49,20 @@ export type Product = {
   __typename?: "Product";
   id: Scalars["ID"]["output"];
   tag: Scalars["String"]["output"];
+};
+
+export type Query = {
+  __typename?: "Query";
+  connectionsUser?: Maybe<User>;
+  connectionsUserNestedFirstName?: Maybe<User>;
+};
+
+export type QueryconnectionsUserArgs = {
+  id: Scalars["ID"]["input"];
+};
+
+export type QueryconnectionsUserNestedFirstNameArgs = {
+  id: Scalars["ID"]["input"];
 };
 
 export type User = {
@@ -192,6 +209,7 @@ export type ResolversTypes = {
   PersonTitle: ResolverTypeWrapper<"MR" | "MRS" | "MS" | "DR" | "PROF">;
   Product: ResolverTypeWrapper<Product>;
   ID: ResolverTypeWrapper<Scalars["ID"]["output"]>;
+  Query: ResolverTypeWrapper<{}>;
   User: ResolverTypeWrapper<UserMapper>;
   Int: ResolverTypeWrapper<Scalars["Int"]["output"]>;
   Boolean: ResolverTypeWrapper<Scalars["Boolean"]["output"]>;
@@ -203,6 +221,7 @@ export type ResolversParentTypes = {
   String: Scalars["String"]["output"];
   Product: Product;
   ID: Scalars["ID"]["output"];
+  Query: {};
   User: UserMapper;
   Int: Scalars["Int"]["output"];
   Boolean: Scalars["Boolean"]["output"];
@@ -236,6 +255,25 @@ export type ProductResolvers<
   id?: Resolver<ResolversTypes["ID"], ParentType, ContextType>;
   tag?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type QueryResolvers<
+  ContextType = ServerContext,
+  ParentType extends
+    ResolversParentTypes["Query"] = ResolversParentTypes["Query"],
+> = {
+  connectionsUser?: Resolver<
+    Maybe<ResolversTypes["User"]>,
+    ParentType,
+    ContextType,
+    RequireFields<QueryconnectionsUserArgs, "id">
+  >;
+  connectionsUserNestedFirstName?: Resolver<
+    Maybe<ResolversTypes["User"]>,
+    ParentType,
+    ContextType,
+    RequireFields<QueryconnectionsUserNestedFirstNameArgs, "id">
+  >;
 };
 
 export type UserResolvers<
@@ -287,6 +325,16 @@ export type UserResolvers<
     ContextType
   >;
 
+  name?: Resolver<
+    ResolversTypes["PersonName"],
+    { __typename: "User" } & GraphQLRecursivePick<ParentType, { id: true }>,
+    ContextType
+  >;
+  title?: Resolver<
+    ResolversTypes["PersonTitle"],
+    { __typename: "User" } & GraphQLRecursivePick<ParentType, { id: true }>,
+    ContextType
+  >;
   watchedProducts?: Resolver<
     Array<ResolversTypes["Product"]>,
     { __typename: "User" } & GraphQLRecursivePick<ParentType, { id: true }>,
@@ -299,5 +347,6 @@ export type Resolvers<ContextType = ServerContext> = {
   PersonName?: PersonNameResolvers<ContextType>;
   PersonTitle?: PersonTitleResolvers;
   Product?: ProductResolvers<ContextType>;
+  Query?: QueryResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
 };

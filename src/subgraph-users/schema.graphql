@@ -11,11 +11,11 @@ type Query {
 type User @key(fields: "id") {
   id: ID!
   username: String!
-  name: PersonName!
+  name: PersonName! @shareable
   birthYear: Int!
   firstName: String!
   lastName: String!
-  title: PersonTitle!
+  title: PersonTitle! @shareable
 }
 
 type PersonName @shareable {

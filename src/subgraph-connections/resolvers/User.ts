@@ -3,7 +3,6 @@ export const User: UserResolvers = {
   __resolveReference: (ref: any, { database }) => {
     console.log("--- connections.User.__resolveReference", ref);
     const { id, ...rest } = ref;
-    console.log("--- connections.User.__resolveReference AFTER", ref);
     return { ...rest, _id: id, source: "ref" };
   },
   id: (parent: any) => {
@@ -46,5 +45,16 @@ export const User: UserResolvers = {
   age: (parent) => {
     console.log("*** connections.User.age", parent);
     return 39;
+  },
+  title: async (parent, _arg, _ctx) => {
+    console.log("*** connections.User.title", parent);
+    return "MS" as const;
+  },
+  name: async (parent: any, _arg, _ctx) => {
+    console.log("*** connections.User.name", parent);
+    return {
+      first: `First:connections:${parent._id}`,
+      last: `Last:connections:${parent._id}`,
+    };
   },
 };
