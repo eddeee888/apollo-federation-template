@@ -1,11 +1,11 @@
 export interface DatabaseProduct {
-  id: string;
+  _id: string;
   isbn: string;
 }
-const createProduct = ({ id }: { id: string }): DatabaseProduct => {
+const createProduct = ({ _id }: { _id: string }): DatabaseProduct => {
   return {
-    id,
-    isbn: `isbn-${id}`,
+    _id,
+    isbn: `isbn-${_id}`,
   };
 };
 
@@ -21,17 +21,17 @@ export const database: {
   media: Record<string, DatabaseMedia>;
 } = {
   products: {
-    "p:1": createProduct({ id: "p:1" }),
-    "p:2": createProduct({ id: "p:2" }),
-    "p:3": createProduct({ id: "p:3" }),
-    "p:4": createProduct({ id: "p:4" }),
-    "p:5": createProduct({ id: "p:5" }),
+    "p:1": createProduct({ _id: "p:1" }),
+    "p:2": createProduct({ _id: "p:2" }),
+    "p:3": createProduct({ _id: "p:3" }),
+    "p:4": createProduct({ _id: "p:4" }),
+    "p:5": createProduct({ _id: "p:5" }),
   },
   media: {
     "m:1": {
       id: "m:1",
       type: "Book",
-      name: "Harry Potter",
+      name: "Harry Potter - The Philosopher's Stone",
       serialIdentifier: "s:1",
     },
     "m:2": {
@@ -39,6 +39,12 @@ export const database: {
       type: "Magazine",
       name: "Vogue",
       serialIdentifier: "s:1",
+    },
+    "m:3": {
+      id: "m:3",
+      type: "Book",
+      name: "Harry Potter - The Chamber of Secrets",
+      serialIdentifier: "s:2",
     },
   },
 };
