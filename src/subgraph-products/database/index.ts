@@ -31,7 +31,7 @@ export const database: {
     "m:1": {
       id: "m:1",
       type: "Book",
-      name: "Harry Potter",
+      name: "Harry Potter - The Philosopher's Stone",
       serialIdentifier: "s:1",
     },
     "m:2": {
@@ -39,6 +39,12 @@ export const database: {
       type: "Magazine",
       name: "Vogue",
       serialIdentifier: "s:1",
+    },
+    "m:3": {
+      id: "m:3",
+      type: "Book",
+      name: "Harry Potter - The Chamber of Secrets",
+      serialIdentifier: "s:2",
     },
   },
 };

@@ -37,6 +37,12 @@ export type Scalars = {
   _FieldSet: { input: any; output: any };
 };
 
+export type Media = {
+  __typename?: "Media";
+  id: Scalars["ID"]["output"];
+  ratings?: Maybe<Scalars["Float"]["output"]>;
+};
+
 export type PersonName = {
   __typename?: "PersonName";
   first: Scalars["String"]["output"];
@@ -204,11 +210,13 @@ export type DirectiveResolverFn<
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
+  Media: ResolverTypeWrapper<Media>;
+  ID: ResolverTypeWrapper<Scalars["ID"]["output"]>;
+  Float: ResolverTypeWrapper<Scalars["Float"]["output"]>;
   PersonName: ResolverTypeWrapper<PersonName>;
   String: ResolverTypeWrapper<Scalars["String"]["output"]>;
   PersonTitle: ResolverTypeWrapper<"MR" | "MRS" | "MS" | "DR" | "PROF">;
   Product: ResolverTypeWrapper<Product>;
-  ID: ResolverTypeWrapper<Scalars["ID"]["output"]>;
   Query: ResolverTypeWrapper<{}>;
   User: ResolverTypeWrapper<UserMapper>;
   Int: ResolverTypeWrapper<Scalars["Int"]["output"]>;
@@ -217,14 +225,31 @@ export type ResolversTypes = {
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
+  Media: Media;
+  ID: Scalars["ID"]["output"];
+  Float: Scalars["Float"]["output"];
   PersonName: PersonName;
   String: Scalars["String"]["output"];
   Product: Product;
-  ID: Scalars["ID"]["output"];
   Query: {};
   User: UserMapper;
   Int: Scalars["Int"]["output"];
   Boolean: Scalars["Boolean"]["output"];
+};
+
+export type MediaResolvers<
+  ContextType = ServerContext,
+  ParentType extends
+    ResolversParentTypes["Media"] = ResolversParentTypes["Media"],
+> = {
+  __resolveReference?: ReferenceResolver<
+    Maybe<ResolversTypes["Media"]>,
+    { __typename: "Media" } & GraphQLRecursivePick<ParentType, { id: true }>,
+    ContextType
+  >;
+  id?: Resolver<ResolversTypes["ID"], ParentType, ContextType>;
+  ratings?: Resolver<Maybe<ResolversTypes["Float"]>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type PersonNameResolvers<
@@ -344,6 +369,7 @@ export type UserResolvers<
 };
 
 export type Resolvers<ContextType = ServerContext> = {
+  Media?: MediaResolvers<ContextType>;
   PersonName?: PersonNameResolvers<ContextType>;
   PersonTitle?: PersonTitleResolvers;
   Product?: ProductResolvers<ContextType>;

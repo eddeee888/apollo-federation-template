@@ -1,7 +1,14 @@
 extend schema
   @link(
     url: "https://specs.apollo.dev/federation/v2.3"
-    import: ["@key", "@shareable", "@requires", "@external", "@provides"]
+    import: [
+      "@key"
+      "@shareable"
+      "@requires"
+      "@external"
+      "@provides"
+      "@interfaceObject"
+    ]
   )
 
 type Query {
@@ -43,4 +50,9 @@ enum PersonTitle {
 type Product @key(fields: "id") {
   id: ID!
   tag: String!
+}
+
+type Media @key(fields: "id") @interfaceObject {
+  id: ID!
+  ratings: Float
 }
