@@ -10,6 +10,7 @@ const config: CodegenConfig = {
       {
         mode: "merged",
         mergeSchema: false,
+        resolverGeneration: "minimal",
         fixObjectTypeResolvers: "disabled",
         resolverRelativeTargetDir: "resolvers",
         typesPluginsConfig: {
@@ -29,6 +30,7 @@ const config: CodegenConfig = {
       {
         mode: "merged",
         mergeSchema: false,
+        resolverGeneration: "minimal",
         resolverRelativeTargetDir: "resolvers",
         typesPluginsConfig: {
           federation: true,
@@ -47,6 +49,7 @@ const config: CodegenConfig = {
       {
         mode: "merged",
         mergeSchema: false,
+        resolverGeneration: "minimal",
         resolverRelativeTargetDir: "resolvers",
         typesPluginsConfig: {
           federation: true,

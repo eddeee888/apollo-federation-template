@@ -6,9 +6,27 @@ extend schema
 
 type Query {
   product(id: ID!): Product
+  media(id: ID!): Media
 }
 
 type Product @key(fields: "id") {
   id: ID!
   name: String!
+}
+
+interface Media @key(fields: "id") {
+  id: ID!
+  name: String!
+}
+
+type Book implements Media @key(fields: "id") {
+  id: ID!
+  name: String!
+  isbn: String!
+}
+
+type Magazine implements Media @key(fields: "id") {
+  id: ID!
+  name: String!
+  issue: String!
 }

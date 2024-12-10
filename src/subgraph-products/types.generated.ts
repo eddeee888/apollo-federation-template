@@ -34,6 +34,25 @@ export type Scalars = {
   _FieldSet: { input: any; output: any };
 };
 
+export type Book = Media & {
+  __typename?: "Book";
+  id: Scalars["ID"]["output"];
+  isbn: Scalars["String"]["output"];
+  name: Scalars["String"]["output"];
+};
+
+export type Magazine = Media & {
+  __typename?: "Magazine";
+  id: Scalars["ID"]["output"];
+  issue: Scalars["String"]["output"];
+  name: Scalars["String"]["output"];
+};
+
+export type Media = {
+  id: Scalars["ID"]["output"];
+  name: Scalars["String"]["output"];
+};
+
 export type Product = {
   __typename?: "Product";
   id: Scalars["ID"]["output"];
@@ -42,7 +61,12 @@ export type Product = {
 
 export type Query = {
   __typename?: "Query";
+  media?: Maybe<Media>;
   product?: Maybe<Product>;
+};
+
+export type QuerymediaArgs = {
+  id: Scalars["ID"]["input"];
 };
 
 export type QueryproductArgs = {
@@ -170,22 +194,78 @@ export type DirectiveResolverFn<
   info: GraphQLResolveInfo,
 ) => TResult | Promise<TResult>;
 
+/** Mapping of interface types */
+export type ResolversInterfaceTypes<_RefType extends Record<string, unknown>> =
+  {
+    Media:
+      | (Book & { __typename: "Book" })
+      | (Magazine & { __typename: "Magazine" });
+  };
+
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
-  Product: ResolverTypeWrapper<ProductMapper>;
+  Book: ResolverTypeWrapper<Book>;
   ID: ResolverTypeWrapper<Scalars["ID"]["output"]>;
   String: ResolverTypeWrapper<Scalars["String"]["output"]>;
+  Magazine: ResolverTypeWrapper<Magazine>;
+  Media: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>["Media"]>;
+  Product: ResolverTypeWrapper<ProductMapper>;
   Query: ResolverTypeWrapper<{}>;
   Boolean: ResolverTypeWrapper<Scalars["Boolean"]["output"]>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
-  Product: ProductMapper;
+  Book: Book;
   ID: Scalars["ID"]["output"];
   String: Scalars["String"]["output"];
+  Magazine: Magazine;
+  Media: ResolversInterfaceTypes<ResolversParentTypes>["Media"];
+  Product: ProductMapper;
   Query: {};
   Boolean: Scalars["Boolean"]["output"];
+};
+
+export type BookResolvers<
+  ContextType = ServerContext,
+  ParentType extends
+    ResolversParentTypes["Book"] = ResolversParentTypes["Book"],
+> = {
+  __resolveReference?: ReferenceResolver<
+    Maybe<ResolversTypes["Book"]>,
+    { __typename: "Book" } & GraphQLRecursivePick<ParentType, { id: true }>,
+    ContextType
+  >;
+  id?: Resolver<ResolversTypes["ID"], ParentType, ContextType>;
+  isbn?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type MagazineResolvers<
+  ContextType = ServerContext,
+  ParentType extends
+    ResolversParentTypes["Magazine"] = ResolversParentTypes["Magazine"],
+> = {
+  __resolveReference?: ReferenceResolver<
+    Maybe<ResolversTypes["Magazine"]>,
+    { __typename: "Magazine" } & GraphQLRecursivePick<ParentType, { id: true }>,
+    ContextType
+  >;
+  id?: Resolver<ResolversTypes["ID"], ParentType, ContextType>;
+  issue?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type MediaResolvers<
+  ContextType = ServerContext,
+  ParentType extends
+    ResolversParentTypes["Media"] = ResolversParentTypes["Media"],
+> = {
+  __resolveType?: TypeResolveFn<"Book" | "Magazine", ParentType, ContextType>;
+  id?: Resolver<ResolversTypes["ID"], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
 };
 
 export type ProductResolvers<
@@ -208,6 +288,12 @@ export type QueryResolvers<
   ParentType extends
     ResolversParentTypes["Query"] = ResolversParentTypes["Query"],
 > = {
+  media?: Resolver<
+    Maybe<ResolversTypes["Media"]>,
+    ParentType,
+    ContextType,
+    RequireFields<QuerymediaArgs, "id">
+  >;
   product?: Resolver<
     Maybe<ResolversTypes["Product"]>,
     ParentType,
@@ -217,6 +303,9 @@ export type QueryResolvers<
 };
 
 export type Resolvers<ContextType = ServerContext> = {
+  Book?: BookResolvers<ContextType>;
+  Magazine?: MagazineResolvers<ContextType>;
+  Media?: MediaResolvers<ContextType>;
   Product?: ProductResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
 };
