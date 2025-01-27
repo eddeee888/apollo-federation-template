@@ -1,4 +1,5 @@
 import { GraphQLResolveInfo } from "graphql";
+import { UserMapper } from "./schema.mappers";
 import { ServerContext } from "./index";
 export type Maybe<T> = T | null | undefined;
 export type InputMaybe<T> = T | null | undefined;
@@ -30,6 +31,11 @@ export type Scalars = {
   _FieldSet: { input: any; output: any };
 };
 
+export type Product = {
+  __typename?: "Product";
+  id: Scalars["ID"]["output"];
+};
+
 export type Query = {
   __typename?: "Query";
   me?: Maybe<User>;
@@ -37,6 +43,7 @@ export type Query = {
 
 export type User = {
   __typename?: "User";
+  favouriteProduct?: Maybe<Product>;
   id: Scalars["ID"]["output"];
   username: Scalars["String"]["output"];
 };
@@ -164,20 +171,36 @@ export type DirectiveResolverFn<
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
-  Query: ResolverTypeWrapper<{}>;
-  User: ResolverTypeWrapper<User>;
+  Product: ResolverTypeWrapper<Product>;
   ID: ResolverTypeWrapper<Scalars["ID"]["output"]>;
+  Query: ResolverTypeWrapper<{}>;
+  User: ResolverTypeWrapper<UserMapper>;
   String: ResolverTypeWrapper<Scalars["String"]["output"]>;
   Boolean: ResolverTypeWrapper<Scalars["Boolean"]["output"]>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
-  Query: {};
-  User: User;
+  Product: Product;
   ID: Scalars["ID"]["output"];
+  Query: {};
+  User: UserMapper;
   String: Scalars["String"]["output"];
   Boolean: Scalars["Boolean"]["output"];
+};
+
+export type ProductResolvers<
+  ContextType = ServerContext,
+  ParentType extends
+    ResolversParentTypes["Product"] = ResolversParentTypes["Product"],
+> = {
+  __resolveReference?: ReferenceResolver<
+    Maybe<ResolversTypes["Product"]>,
+    ParentType,
+    ContextType
+  >;
+  id?: Resolver<ResolversTypes["ID"], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type QueryResolvers<
@@ -198,12 +221,18 @@ export type UserResolvers<
     { __typename: "User" } & GraphQLRecursivePick<ParentType, { id: true }>,
     ContextType
   >;
+  favouriteProduct?: Resolver<
+    Maybe<ResolversTypes["Product"]>,
+    ParentType,
+    ContextType
+  >;
   id?: Resolver<ResolversTypes["ID"], ParentType, ContextType>;
   username?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type Resolvers<ContextType = ServerContext> = {
+  Product?: ProductResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
 };

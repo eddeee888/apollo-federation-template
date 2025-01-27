@@ -12,4 +12,14 @@ export const User: UserResolvers = {
     console.log("*** users.User.name", parent);
     return parent.username;
   },
+  favouriteProduct: (parent) => {
+    console.log("*** users.User.favouriteProduct", parent);
+    if (!parent.favouriteProductId) {
+      return null;
+    }
+
+    return {
+      id: parent.favouriteProductId,
+    };
+  },
 };
