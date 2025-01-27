@@ -8,4 +8,4 @@ export const Media: MediaResolvers = {
     console.log("*** products.Media.__resolveType: ", parent);
     return parent.type;
   },
-} as any;
+} as any; // FIXME: remove this `as any` after Codegen allows `__resolveReference` in interfaces
