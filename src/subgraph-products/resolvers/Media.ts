@@ -4,7 +4,8 @@ export const Media: MediaResolvers = {
     console.log("--- products.Media.__resolveReference: ", ref);
     return database.media[ref.id];
   },
-  __resolveType: (media: any) => {
-    return media.type;
+  __resolveType: (parent: any) => {
+    console.log("*** products.Media.__resolveType: ", parent);
+    return parent.type;
   },
 } as any;
