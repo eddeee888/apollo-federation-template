@@ -1,7 +1,7 @@
 import type { ProductResolvers } from "./../types.generated";
 export const Product: ProductResolvers = {
   __resolveReference: async (ref, { database }) => {
-    console.log("*** products.Product.__resolveReference: ", ref);
+    console.log("--- products.Product.__resolveReference: ", ref);
     return database.products[ref.id];
   },
   name: async (parent, _arg, _ctx) => {
