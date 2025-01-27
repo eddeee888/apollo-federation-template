@@ -1,5 +1,5 @@
 import { GraphQLResolveInfo } from "graphql";
-import { ProductMapper } from "./schema.mappers";
+import { MediaMapper, MovieMapper, ProductMapper } from "./schema.mappers";
 import { ServerContext } from "./index";
 export type Maybe<T> = T | null | undefined;
 export type InputMaybe<T> = T | null | undefined;
@@ -191,19 +191,13 @@ export type DirectiveResolverFn<
   info: GraphQLResolveInfo,
 ) => TResult | Promise<TResult>;
 
-/** Mapping of interface types */
-export type ResolversInterfaceTypes<_RefType extends Record<string, unknown>> =
-  {
-    Media: (Book & { __typename: "Book" }) | (Movie & { __typename: "Movie" });
-  };
-
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   Book: ResolverTypeWrapper<Book>;
   ID: ResolverTypeWrapper<Scalars["ID"]["output"]>;
   String: ResolverTypeWrapper<Scalars["String"]["output"]>;
-  Media: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>["Media"]>;
-  Movie: ResolverTypeWrapper<Movie>;
+  Media: ResolverTypeWrapper<MediaMapper>;
+  Movie: ResolverTypeWrapper<MovieMapper>;
   Product: ResolverTypeWrapper<ProductMapper>;
   Query: ResolverTypeWrapper<{}>;
   Boolean: ResolverTypeWrapper<Scalars["Boolean"]["output"]>;
@@ -214,8 +208,8 @@ export type ResolversParentTypes = {
   Book: Book;
   ID: Scalars["ID"]["output"];
   String: Scalars["String"]["output"];
-  Media: ResolversInterfaceTypes<ResolversParentTypes>["Media"];
-  Movie: Movie;
+  Media: MediaMapper;
+  Movie: MovieMapper;
   Product: ProductMapper;
   Query: {};
   Boolean: Scalars["Boolean"]["output"];
