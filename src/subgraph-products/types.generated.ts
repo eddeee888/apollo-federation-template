@@ -1,5 +1,5 @@
 import { GraphQLResolveInfo } from "graphql";
-import { ProductMapper } from "./schema.mappers";
+import { MediaMapper, MovieMapper, ProductMapper } from "./schema.mappers";
 import { ServerContext } from "./index";
 export type Maybe<T> = T | null | undefined;
 export type InputMaybe<T> = T | null | undefined;
@@ -34,6 +34,22 @@ export type Scalars = {
   _FieldSet: { input: any; output: any };
 };
 
+export type Book = Media & {
+  __typename?: "Book";
+  id: Scalars["ID"]["output"];
+  title: Scalars["String"]["output"];
+};
+
+export type Media = {
+  id: Scalars["ID"]["output"];
+};
+
+export type Movie = Media & {
+  __typename?: "Movie";
+  id: Scalars["ID"]["output"];
+  name: Scalars["String"]["output"];
+};
+
 export type Product = {
   __typename?: "Product";
   id: Scalars["ID"]["output"];
@@ -42,7 +58,12 @@ export type Product = {
 
 export type Query = {
   __typename?: "Query";
+  media?: Maybe<Media>;
   product?: Maybe<Product>;
+};
+
+export type QuerymediaArgs = {
+  id: Scalars["ID"]["input"];
 };
 
 export type QueryproductArgs = {
@@ -172,20 +193,65 @@ export type DirectiveResolverFn<
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
-  Product: ResolverTypeWrapper<ProductMapper>;
+  Book: ResolverTypeWrapper<Book>;
   ID: ResolverTypeWrapper<Scalars["ID"]["output"]>;
   String: ResolverTypeWrapper<Scalars["String"]["output"]>;
+  Media: ResolverTypeWrapper<MediaMapper>;
+  Movie: ResolverTypeWrapper<MovieMapper>;
+  Product: ResolverTypeWrapper<ProductMapper>;
   Query: ResolverTypeWrapper<{}>;
   Boolean: ResolverTypeWrapper<Scalars["Boolean"]["output"]>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
-  Product: ProductMapper;
+  Book: Book;
   ID: Scalars["ID"]["output"];
   String: Scalars["String"]["output"];
+  Media: MediaMapper;
+  Movie: MovieMapper;
+  Product: ProductMapper;
   Query: {};
   Boolean: Scalars["Boolean"]["output"];
+};
+
+export type BookResolvers<
+  ContextType = ServerContext,
+  ParentType extends
+    ResolversParentTypes["Book"] = ResolversParentTypes["Book"],
+> = {
+  __resolveReference?: ReferenceResolver<
+    Maybe<ResolversTypes["Book"]>,
+    { __typename: "Book" } & GraphQLRecursivePick<ParentType, { id: true }>,
+    ContextType
+  >;
+  id?: Resolver<ResolversTypes["ID"], ParentType, ContextType>;
+  title?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type MediaResolvers<
+  ContextType = ServerContext,
+  ParentType extends
+    ResolversParentTypes["Media"] = ResolversParentTypes["Media"],
+> = {
+  __resolveType?: TypeResolveFn<"Book" | "Movie", ParentType, ContextType>;
+  id?: Resolver<ResolversTypes["ID"], ParentType, ContextType>;
+};
+
+export type MovieResolvers<
+  ContextType = ServerContext,
+  ParentType extends
+    ResolversParentTypes["Movie"] = ResolversParentTypes["Movie"],
+> = {
+  __resolveReference?: ReferenceResolver<
+    Maybe<ResolversTypes["Movie"]>,
+    { __typename: "Movie" } & GraphQLRecursivePick<ParentType, { id: true }>,
+    ContextType
+  >;
+  id?: Resolver<ResolversTypes["ID"], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type ProductResolvers<
@@ -208,6 +274,12 @@ export type QueryResolvers<
   ParentType extends
     ResolversParentTypes["Query"] = ResolversParentTypes["Query"],
 > = {
+  media?: Resolver<
+    Maybe<ResolversTypes["Media"]>,
+    ParentType,
+    ContextType,
+    RequireFields<QuerymediaArgs, "id">
+  >;
   product?: Resolver<
     Maybe<ResolversTypes["Product"]>,
     ParentType,
@@ -217,6 +289,9 @@ export type QueryResolvers<
 };
 
 export type Resolvers<ContextType = ServerContext> = {
+  Book?: BookResolvers<ContextType>;
+  Media?: MediaResolvers<ContextType>;
+  Movie?: MovieResolvers<ContextType>;
   Product?: ProductResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
 };

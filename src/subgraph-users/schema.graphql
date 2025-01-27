@@ -1,14 +1,25 @@
 extend schema
   @link(
-    url: "https://specs.apollo.dev/federation/v2.0"
-    import: ["@key", "@shareable"]
+    url: "https://specs.apollo.dev/federation/v2.3"
+    import: ["@key", "@shareable", "@interfaceObject"]
   )
 
 type Query {
   me: User
+  user(id: ID!): User
 }
 
 type User @key(fields: "id") {
   id: ID!
   username: String!
+  favouriteProduct: Product
+  favouriteMedia: Media
+}
+
+type Product @key(fields: "id", resolvable: false) {
+  id: ID!
+}
+
+type Media @key(fields: "id", resolvable: false) @interfaceObject {
+  id: ID!
 }

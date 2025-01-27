@@ -12,4 +12,24 @@ export const User: UserResolvers = {
     console.log("*** users.User.name", parent);
     return parent.username;
   },
+  favouriteProduct: (parent) => {
+    console.log("*** users.User.favouriteProduct", parent);
+    if (!parent.favouriteProductId) {
+      return null;
+    }
+
+    return {
+      id: parent.favouriteProductId,
+    };
+  },
+  favouriteMedia: async (parent, _arg, _ctx) => {
+    console.log("*** users.User.favouriteMedia", parent);
+    if (!parent.favouriteMediaId) {
+      return null;
+    }
+
+    return {
+      id: parent.favouriteMediaId,
+    };
+  },
 };
