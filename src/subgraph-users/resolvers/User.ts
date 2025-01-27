@@ -22,4 +22,14 @@ export const User: UserResolvers = {
       id: parent.favouriteProductId,
     };
   },
+  favouriteMedia: async (parent, _arg, _ctx) => {
+    console.log("*** users.User.favouriteMedia", parent);
+    if (!parent.favouriteMediaId) {
+      return null;
+    }
+
+    return {
+      id: parent.favouriteMediaId,
+    };
+  },
 };
